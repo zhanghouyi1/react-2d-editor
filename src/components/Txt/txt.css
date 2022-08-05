@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'HYk2gj';
+    src: url('../../accets/css/YUNFENFEIYUNTI.eot'); /* IE9 Compat Modes */
+    src: url('../../accets/css/YUNFENFEIYUNTI.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../../accets/css/YUNFENFEIYUNTI.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../../accets/css/YUNFENFEIYUNTI.woff') format('woff'), /* Pretty Modern Browsers */
+         url('../../accets/css/YUNFENFEIYUNTI.ttf')  format('truetype'), /* Safari, Android, iOS */
+         url('../../accets/css/YUNFENFEIYUNTI.svg#svgFontName') format('svg'); /* Legacy iOS */
+  }
+.txt{
+    position: absolute;
+    outline: none;
+    font-family: 'HYk2gj';
+    font-size: 32px;
+}
