@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-07-29 16:28:12
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-05 17:22:55
+ * @LastEditTime: 2022-08-10 18:10:23
  * @FilePath: /test-zu/src/utils/utils.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,9 +14,8 @@
  * @param e        事件event
  */
 // eslint-disable-next-line react-hooks/exhaustive-deps
-export const transform=(direction, oriPos, e)=>{
+export const transform=(direction, oriPos, e,originalWidth,txtDom)=>{
     const style = {...oriPos.current}
-    console.log('...oriPos.current',oriPos.current.width)
     let radio=(oriPos.current.width/oriPos.current.height).toFixed(2);
     // /data.style.fontSize = (data.style.width / originWidth) * fontSize; 字体计算方式 originWidth 初始长度
     console.log(radio,oriPos)
@@ -66,40 +65,21 @@ export const transform=(direction, oriPos, e)=>{
         case 'nw':
             style.height -= offsetY;
             style.top += offsetY;
-            style.width -= offsetX;
-            style.left += offsetX; 
+            style.width =style.height*radio;
+            style.left += offsetY*radio; 
             break
         // 东南
         case 'se':
-            if((((offsetX > 0 && offsetY < 0) && (offsetX > Math.abs(offsetY))) || (offsetX > 0 && offsetY > 0 && offsetX > offsetY) || (offsetX > 0 && offsetY === 0)) ){
-                //right
-                style.width += offsetX;
-                style.height = style.width/radio;
-                console.log('right')
-            }else if(((offsetY > 0 && offsetX < 0) && (offsetY > Math.abs(offsetX))) || (offsetY > 0 && offsetX > 0 && offsetY > offsetX) || (offsetY > 0 && offsetX == 0) ){
-                //down
-                style.height += offsetY;
-                style.width = style.height*radio;
-                
-                console.log('down')
-            }else if( ( (offsetX < 0  && offsetY > 0) && (Math.abs(offsetX) > offsetY) ) || ( (offsetX < 0 &&  offsetY < 0)  && (Math.abs(offsetX) > Math.abs(offsetY)) ) || (offsetX < 0 && offsetY === 0) ){
-                style.width += offsetX;
-                style.height = style.width/radio;
-            }else if(((offsetY < 0 && offsetX < 0) && Math.abs(offsetY) > Math.abs(offsetX)) || ((offsetY < 0 && offsetX > 0) &&  (Math.abs(offsetY) > offsetX)) || (offsetY < 0 && offsetX === 0)){
-                //up
-                style.height += offsetY;
-                style.width = style.height*radio;
-                console.log('up')
-            }else{
-                style.height += offsetY;
-                style.width += offsetX;
-            }
+            style.width += offsetX;
+            style.height = style.width/radio;
             
             break
         // 西南
         case 'sw':
-            style.height += offsetY;
             style.width -= offsetX;
+            style.height = style.width/radio;
+            // style.height += offsetY;
+            // style.width -= offsetX;
             style.left += offsetX;
             break
         case 'rotate':
@@ -110,9 +90,22 @@ export const transform=(direction, oriPos, e)=>{
             const x1 = e.clientX;
             const y1 = e.clientY;
               // 运用高中的三角函数
-              console.log('1',(y1 - y), (x1 - x))
             style.transform = `rotate(${(Math.atan2((y1 - y), (x1 - x))) *(180 / Math.PI)}deg)`;
             break
     }
     return style
+}
+
+/**节流函数 */
+export const throttle=(fn,delay)=>{
+    let timer;
+    return (...args)=>{
+        if (timer) {
+            return
+        }
+        timer = setTimeout(() => {
+            fn.apply(this,args)
+            timer = null
+        },delay)
+    }
 }

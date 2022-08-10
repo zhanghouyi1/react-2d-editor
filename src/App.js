@@ -1,10 +1,11 @@
-import { useState,useRef,useContext,createContext } from 'react';
+import React,{ useState,useRef,createContext } from 'react';
 import './App.css';
-import {transform} from './utils/utils'
+import {transform,throttle} from './utils/utils'
 import {_Component} from './utils/loadComponent'
-import {_map} from './utils/data'
+import {element,points} from './utils/data'
 
-const points = ['e', 'w', 's', 'n', 'ne', 'nw', 'se', 'sw'];
+export const Context=createContext({});
+
 function App() {
  // 画板的
   const [style, setStyle] = useState({
@@ -18,7 +19,7 @@ function App() {
     top: 0, // 元素的坐标
     left: 0,
     cX: 0, // 鼠标的坐标
-    cY: 0
+    cY: 0,
   })
   //选择了哪个 元素的坐标
   const [index,setIndex]=useState(0);
@@ -31,9 +32,11 @@ function App() {
   //存储当前被操纵的 组件
   const setCurrentCom=useRef(null);
   //如果是文字的话 要存下当前的dom 实时获取dom 的宽高 
-  const [txtDom,setTxtDom]=useState(null)
-
-
+  const [txtDom,setTxtDom]=useState(null);
+  //数据
+  let [data,setData]=useState(element);
+  const [checkTxt,setCheckTxt]=useState(false)
+  const originalWidth=useRef()
   // 鼠标被按下
   const onMouseDown = (dir, e) => {
     e.stopPropagation();
@@ -43,11 +46,11 @@ function App() {
     if(dir==='none'){
       setShow(false);
       setTxtDom(null);
+      setCheckTxt(false)
       setCurrentCom.current=null;
       console.log('haha')
       return 
     }
-    console.log(111)
     // 保存方向。
     direction.current = dir;
     //确定按下
@@ -55,68 +58,50 @@ function App() {
     // 然后鼠标坐标是
     const cY = e.clientY; // clientX 相对于可视化区域
     const cX = e.clientX;
+
     oriPos.current = {
         ...style,
         cX, cY
     }
+    console.log('oriPos',oriPos)
   }
 // 鼠标移动
-  const onMouseMove = (e) => {
+  const onMouseMove = throttle((e) => {
     // 判断鼠标是否按住
-    if (!isDown.current) return
-    let newStyle = transform(direction, oriPos, e);
+    if (!isDown.current) return;
+    let newStyle = transform(direction, oriPos, e,originalWidth,txtDom);
     /**字体的改变只有 点击四个斜方向的角才会出现字体大小改变 其他方向操作只会改变区域操作 */
     setStyle(newStyle);
-    //这里说明 选择了文字组件
     if(txtDom){
-        if(direction.current==='se'){
-          console.log('aa',newStyle.width, oriPos.current.fontSize)
-          newStyle.fontSize=(newStyle.width / oriPos.current.width) * 20;
-          console.log('newStyle.fontSize',newStyle.fontSize)
+        if(direction.current==='se'||direction.current==='sw'){
+          newStyle.fontSize=(newStyle.width / originalWidth.current) * 20;
         }
     }
-    _map[index]=Object.assign(_map[index],newStyle)
-  }
+    data[index]=Object.assign(data[index],newStyle);
+    setData(data);
+  },50)
   
     // 鼠标被抬起
   function onMouseUp(e) {
     isDown.current = false;
   }
- /**选择元素 */
- const checkBox=(item,index,ref)=>{
-  console.log('qaaa')
-  setCurrentCom.current=item
-  oriPos.current.fontSize=item.fontSize
-  console.log('oriPos',oriPos)
-  const {left,top,width,height}=item;
-  let clientWidth=null,clientHeight=null;
-  if(ref){
-    setTxtDom(ref.current)
-    clientWidth=ref.current.clientWidth;
-    clientHeight=ref.current.clientHeight;
+  const doubleClick=()=>{
+    setCheckTxt(true)
   }
-  setStyle({
-    left,
-    top,
-    width:clientWidth?clientWidth:width,
-    height:clientHeight?clientHeight:height
-  });
-  setIndex(index)
-  setShow(true);
- }
  /**双击事件 */
-
-  return <div className="drawing-wrap" onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
+  return <Context.Provider value={{data,setData,oriPos,style,setStyle,setCurrentCom,setIndex,show,setShow,setTxtDom,oriPos,originalWidth,checkTxt}}>
+    <div className="drawing-wrap" onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             {
-              _map.map((item,index)=>_Component(item,index,checkBox))
+              data.map((item,index)=>_Component(item,index))
             }
             
-            {show?<div className="drawing-item" onMouseDown={onMouseDown.bind(this, 'move')} style={style}>
-            {points.map(item => <div key={item}  className={`control-point point-${item}`} onMouseDown={onMouseDown.bind(this, item)}></div>)}
+            {show?<div className="drawing-item" onDoubleClick={doubleClick} onMouseDown={onMouseDown.bind(this, 'move')} style={style}>
+            {points.map(item => <div key={item}  className={`control-point point-${item}`}  onMouseDown={onMouseDown.bind(this, item)}></div>)}
             
             {/* <div className="control-point control-rotator" onMouseDown={onMouseDown.bind(this, 'rotate')}></div> */}
         </div>:null}
         </div>
+  </Context.Provider> 
 }
 
 export default App;
