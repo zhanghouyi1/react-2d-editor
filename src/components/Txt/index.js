@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 14:40:36
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-10 17:15:54
+ * @LastEditTime: 2022-08-12 16:50:39
  * @FilePath: /2d-ediotor/src/components/Txt/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,8 +10,8 @@ import {Context} from '../../App';
 import {useContext,useState,useRef} from 'react';
 import './txt.css'
 export default function Txt({item,index}){
-    const {setStyle,setCurrentCom,setIndex,setShow,setTxtDom,originalWidth,checkTxt,setData,data}=useContext(Context);
-    const {left,top,width,height}=item
+    const {setStyle,currentCom,setIndex,setShow,setTxtDom,original,checkTxt,setData,data}=useContext(Context);
+    const {left,top,width,height,rotate}=item
     const [enable,setEnable]=useState(false);
     // useEffect(()=>{
 
@@ -24,20 +24,22 @@ export default function Txt({item,index}){
     /**单击事件 */
     const checkElement=(e)=>{
         e.stopPropagation();
-        setCurrentCom.current=item;
+        console.log(item)
+        currentCom.current=item
         setTxtDom(_ref.current)
         const {clientWidth,clientHeight}=_ref.current
         setStyle({
             left,
             top,
             width:clientWidth||width,
-            height:clientHeight||height
+            height:clientHeight||height,
+            rotate
         });
         data[index].width=clientWidth||width
         setData(data)
-        if(!originalWidth.current){
-            originalWidth.current=clientWidth||width
-        }
+        console.log('original',original.current)
+        original.current.width=clientWidth||width
+        original.current.fontSize=item.fontSize;
         setIndex(index);
         setShow(true);
     }
@@ -64,7 +66,8 @@ export default function Txt({item,index}){
             top:item.top+'px',
             background:item.background,
             fontSize:item.fontSize,
-            zIndex:checkTxt?1100:item.zIndex
+            zIndex:checkTxt?1100:item.zIndex,
+            transform:`rotate(${item.rotate}deg)`
         }} 
         ref={_ref} 
         onMouseDown={checkElement}

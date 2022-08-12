@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-07-29 16:28:12
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-10 18:10:23
+ * @LastEditTime: 2022-08-12 17:28:24
  * @FilePath: /test-zu/src/utils/utils.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,13 +14,20 @@
  * @param e        事件event
  */
 // eslint-disable-next-line react-hooks/exhaustive-deps
-export const transform=(direction, oriPos, e,originalWidth,txtDom)=>{
+export const transform=(direction, oriPos, e,original,txtDom)=>{
+    const {top,left,cX,cY,width,height,rotate}=oriPos.current;
     const style = {...oriPos.current}
     let radio=(oriPos.current.width/oriPos.current.height).toFixed(2);
     // /data.style.fontSize = (data.style.width / originWidth) * fontSize; 字体计算方式 originWidth 初始长度
-    console.log(radio,oriPos)
     const offsetX = e.clientX - oriPos.current.cX;
     const offsetY = e.clientY - oriPos.current.cY;
+
+    const centerX=left+width/2
+    const centerY=top+height/2
+    console.log('cX',cX)
+    /**旋转前的角度 */
+    const rotateDegreeBefore=Math.atan2(cY-centerY,cX-centerX)/(Math.PI/180);
+    console.log('oriPos',oriPos)
     // eslint-disable-next-line default-case
     switch (direction.current) {
         // 拖拽移动
@@ -36,43 +43,48 @@ export const transform=(direction, oriPos, e,originalWidth,txtDom)=>{
         case 'e':
             // 向右拖拽添加宽度
             style.width += offsetX;
+            if(txtDom){
+                style.height = txtDom.clientHeight;
+            }
             return style
         // 西
         case 'w':
             // 增加宽度、位置同步左移
             style.width -= offsetX;
             style.left += offsetX;
-            console.log('w',style)
+            if(txtDom){
+                style.height = txtDom.clientHeight;
+            }
             return style
         // 南
         case 's':
             style.height += offsetY;
-            console.log('s',style)
             return style
         // 北
         case 'n':
             style.height -= offsetY;
             style.top += offsetY;
-            console.log('n',style)
             break
         // 东北
         case 'ne':
             style.height -= offsetY;
             style.top += offsetY;
-            style.width += offsetX;
+            style.width = style.height*radio;
+            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
             break
         // 西北
         case 'nw':
             style.height -= offsetY;
             style.top += offsetY;
             style.width =style.height*radio;
-            style.left += offsetY*radio; 
+            style.left += offsetY*radio;
+            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
             break
         // 东南
         case 'se':
             style.width += offsetX;
             style.height = style.width/radio;
-            
+            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
             break
         // 西南
         case 'sw':
@@ -81,16 +93,18 @@ export const transform=(direction, oriPos, e,originalWidth,txtDom)=>{
             // style.height += offsetY;
             // style.width -= offsetX;
             style.left += offsetX;
+            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
             break
         case 'rotate':
-              // 先计算下元素的中心点, x，y 作为坐标原点
-            const x = style.width / 2 + style.left;
-            const y = style.height / 2 + style.top;
-              // 当前的鼠标坐标
-            const x1 = e.clientX;
-            const y1 = e.clientY;
+            console.log('rotateDegreeBefore',rotateDegreeBefore)
+            const curX=e.clientX;
+            const curY=e.clientY;
+            // 旋转后的角度
+            const rotateDegreeAfter = Math.atan2(curY - centerY, curX - centerX) / (Math.PI / 180)
+            const result = rotate + rotateDegreeAfter - rotateDegreeBefore
+            console.log('rotate',result)
               // 运用高中的三角函数
-            style.transform = `rotate(${(Math.atan2((y1 - y), (x1 - x))) *(180 / Math.PI)}deg)`;
+            style.rotate = result
             break
     }
     return style
@@ -109,3 +123,51 @@ export const throttle=(fn,delay)=>{
         },delay)
     }
 }
+
+export const calculateSingleElementPosition=(direction)=>{
+    const { style } = this.curDesign;
+    let result = {};
+    if (direction === "nw") {
+      result = {
+        x: style.left,
+        y: style.top,
+      };
+    } else if (direction === "ne") {
+      result = {
+        x: style.left + style.width,
+        y: style.top,
+      };
+    } else if (direction === "sw") {
+      result = {
+        x: style.left,
+        y: style.top + style.height,
+      };
+    } else if (direction === "se") {
+      result = {
+        x: style.left + style.width,
+        y: style.top + style.height,
+      };
+    } else if (direction === "n") {
+      result = {
+        x: style.left + style.width / 2,
+        y: style.top,
+      };
+    } else if (direction === "e") {
+      result = {
+        x: style.left + style.width,
+        y: style.top + style.height / 2,
+      };
+    } else if (direction === "s") {
+      result = {
+        x: style.left + style.width / 2,
+        y: style.top + style.height,
+      };
+    } else if (direction === "w") {
+      result = {
+        x: style.left,
+        y: style.top + style.height / 2,
+      };
+    }
+
+    return result;
+  }

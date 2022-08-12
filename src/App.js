@@ -1,8 +1,8 @@
-import React,{ useState,useRef,createContext } from 'react';
+import React,{ useState,useRef,createContext} from 'react';
 import './App.css';
 import {transform,throttle} from './utils/utils'
 import {_Component} from './utils/loadComponent'
-import {element,points} from './utils/data'
+import {element,points,vertex} from './utils/data'
 
 export const Context=createContext({});
 
@@ -12,7 +12,8 @@ function App() {
     left: 100,
     top: 100,
     width: 100,
-    height: 100
+    height: 100,
+    rotate:0
   })
   // 初始数据， 因为不需要重新render 所以用 useRef
   const oriPos = useRef({
@@ -30,13 +31,16 @@ function App() {
   //存储方向操纵的 哪个方向
   const direction=useRef(null);
   //存储当前被操纵的 组件
-  const setCurrentCom=useRef(null);
+  const currentCom=useRef(null);
   //如果是文字的话 要存下当前的dom 实时获取dom 的宽高 
   const [txtDom,setTxtDom]=useState(null);
   //数据
   let [data,setData]=useState(element);
   const [checkTxt,setCheckTxt]=useState(false)
-  const originalWidth=useRef()
+  const original=useRef({
+    width:null,
+    fontSize:null
+  })
   // 鼠标被按下
   const onMouseDown = (dir, e) => {
     e.stopPropagation();
@@ -47,7 +51,7 @@ function App() {
       setShow(false);
       setTxtDom(null);
       setCheckTxt(false)
-      setCurrentCom.current=null;
+      // currentCom.current=null;
       console.log('haha')
       return 
     }
@@ -63,20 +67,16 @@ function App() {
         ...style,
         cX, cY
     }
-    console.log('oriPos',oriPos)
+    
   }
 // 鼠标移动
   const onMouseMove = throttle((e) => {
     // 判断鼠标是否按住
     if (!isDown.current) return;
-    let newStyle = transform(direction, oriPos, e,originalWidth,txtDom);
+    let newStyle = transform(direction, oriPos, e,original,txtDom);
     /**字体的改变只有 点击四个斜方向的角才会出现字体大小改变 其他方向操作只会改变区域操作 */
     setStyle(newStyle);
-    if(txtDom){
-        if(direction.current==='se'||direction.current==='sw'){
-          newStyle.fontSize=(newStyle.width / originalWidth.current) * 20;
-        }
-    }
+    /**这里导致了数据的变化 会有问题吗 */
     data[index]=Object.assign(data[index],newStyle);
     setData(data);
   },50)
@@ -88,17 +88,18 @@ function App() {
   const doubleClick=()=>{
     setCheckTxt(true)
   }
+
  /**双击事件 */
-  return <Context.Provider value={{data,setData,oriPos,style,setStyle,setCurrentCom,setIndex,show,setShow,setTxtDom,oriPos,originalWidth,checkTxt}}>
+  return <Context.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,oriPos,original,checkTxt}}>
     <div className="drawing-wrap" onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             {
               data.map((item,index)=>_Component(item,index))
             }
             
-            {show?<div className="drawing-item" onDoubleClick={doubleClick} onMouseDown={onMouseDown.bind(this, 'move')} style={style}>
-            {points.map(item => <div key={item}  className={`control-point point-${item}`}  onMouseDown={onMouseDown.bind(this, item)}></div>)}
+            {show?<div className="drawing-item" onDoubleClick={doubleClick} onMouseDown={onMouseDown.bind(this, 'move')} style={{width:style.width,height:style.height,top:style.top,left:style.left,transform:`rotate(${style.rotate}deg)`}}>
+            {(txtDom?vertex:points).map(item => <div key={item}  className={`control-point point-${item}`}  onMouseDown={onMouseDown.bind(this, item)}></div>)}
             
-            {/* <div className="control-point control-rotator" onMouseDown={onMouseDown.bind(this, 'rotate')}></div> */}
+            <div className="control-point control-rotator" onMouseDown={onMouseDown.bind(this, 'rotate')}></div>
         </div>:null}
         </div>
   </Context.Provider> 
