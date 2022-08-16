@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-02 10:02:46
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-12 15:19:10
+ * @LastEditTime: 2022-08-16 16:54:04
  * @FilePath: /test-zu/src/utils/data.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -54,3 +54,6 @@ export const element=[
 
 export const points = ['e', 'w', 's', 'n', 'ne', 'nw', 'se', 'sw'];
 export const vertex = ['e', 'w', 'ne', 'nw', 'se', 'sw'];
+export const opposition={
+  e:'w', w:'e', s:'n', n:'s', ne:'sw', nw:'se', se:'nw', sw:'ne'
+}

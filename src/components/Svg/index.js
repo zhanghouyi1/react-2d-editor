@@ -2,12 +2,12 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 13:51:58
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-12 16:50:00
+ * @LastEditTime: 2022-08-16 18:17:40
  * @FilePath: /2d-ediotor/src/components/Img/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import {Context} from '../../App';
-import {useContext,useEffect,useState } from 'react';
+import {useContext} from 'react';
 import svg from '../../bs.svg'
 const readFile = (filePath) => {
     // 创建一个新的xhr对象
@@ -20,7 +20,7 @@ const readFile = (filePath) => {
     return xhr.status === okStatus ? xhr.responseText : null;
 };
 export default function Svg({item,index}){
-    const {setStyle,currentCom,setIndex,setShow,setTxtDom}=useContext(Context);
+    const {setStyle,currentCom,setIndex,setShow,setTxtDom,original}=useContext(Context);
     const {left,top,width,height,url,rotate}=item;
     
     let svgFile=readFile(url);
@@ -49,7 +49,9 @@ export default function Svg({item,index}){
         });
         setIndex(index);
         setShow(true);
-        setTxtDom(null)
+        setTxtDom(null);
+        original.current.width=width
+        original.current.height=height
     }
     // eslint-disable-next-line jsx-a11y/alt-text
     return  <div 

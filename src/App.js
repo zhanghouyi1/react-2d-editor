@@ -1,8 +1,8 @@
 import React,{ useState,useRef,createContext} from 'react';
 import './App.css';
-import {transform,throttle} from './utils/utils'
+import {transform,throttle,calculateSingleElementPosition,calculateRotation} from './utils/utils'
 import {_Component} from './utils/loadComponent'
-import {element,points,vertex} from './utils/data'
+import {element,points,vertex,opposition} from './utils/data'
 
 export const Context=createContext({});
 
@@ -36,6 +36,12 @@ function App() {
   const [txtDom,setTxtDom]=useState(null);
   //数据
   let [data,setData]=useState(element);
+
+  //
+  const unitVectorData=useRef()
+  const targetData=useRef()
+  const oppositeData=useRef()
+
   const [checkTxt,setCheckTxt]=useState(false)
   const original=useRef({
     width:null,
@@ -52,7 +58,6 @@ function App() {
       setTxtDom(null);
       setCheckTxt(false)
       // currentCom.current=null;
-      console.log('haha')
       return 
     }
     // 保存方向。
@@ -67,13 +72,44 @@ function App() {
         ...style,
         cX, cY
     }
-    
+
+    let target=calculateSingleElementPosition(direction.current,style);
+    let opposite = calculateSingleElementPosition(opposition[direction.current],style);
+    const designCenter = {
+      x: style.left + style.width / 2,
+      y: style.top + style.height / 2,
+    };
+    target = calculateRotation(
+      target.x,
+      target.y,
+      designCenter.x,
+      designCenter.y,
+      style.rotate || 0
+    );
+    targetData.current=target
+    opposite = calculateRotation(
+      opposite.x,
+      opposite.y,
+      designCenter.x,
+      designCenter.y,
+      style.rotate || 0
+    );
+    oppositeData.current=opposite
+    // 计算单位向量
+    const unitVector = {
+      x: target.x - opposite.x,
+      y: target.y - opposite.y,
+    };
+    const a = Math.sqrt(unitVector.x * unitVector.x + unitVector.y * unitVector.y);
+      unitVector.x /= a;
+      unitVector.y /= a;
+    unitVectorData.current=unitVector
   }
 // 鼠标移动
   const onMouseMove = throttle((e) => {
     // 判断鼠标是否按住
     if (!isDown.current) return;
-    let newStyle = transform(direction, oriPos, e,original,txtDom);
+    let newStyle = transform(direction, oriPos, e,original,txtDom,unitVectorData.current,targetData.current,oppositeData.current);
     /**字体的改变只有 点击四个斜方向的角才会出现字体大小改变 其他方向操作只会改变区域操作 */
     setStyle(newStyle);
     /**这里导致了数据的变化 会有问题吗 */
@@ -90,7 +126,7 @@ function App() {
   }
 
  /**双击事件 */
-  return <Context.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,oriPos,original,checkTxt}}>
+  return <Context.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,original,checkTxt}}>
     <div className="drawing-wrap" onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             {
               data.map((item,index)=>_Component(item,index))

@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 14:40:36
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-12 16:50:39
+ * @LastEditTime: 2022-08-16 17:57:27
  * @FilePath: /2d-ediotor/src/components/Txt/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -37,8 +37,8 @@ export default function Txt({item,index}){
         });
         data[index].width=clientWidth||width
         setData(data)
-        console.log('original',original.current)
         original.current.width=clientWidth||width
+        original.current.height=clientHeight||height
         original.current.fontSize=item.fontSize;
         setIndex(index);
         setShow(true);
