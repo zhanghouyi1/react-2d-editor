@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-02 10:02:46
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-18 15:59:17
+ * @LastEditTime: 2022-08-18 17:55:02
  * @FilePath: /test-zu/src/utils/data.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,7 +10,8 @@ import bs from '../bs.svg'
 import img from '../accets/img/img.png';
 import txt from '../accets/img/txt.png';
 import svg from '../accets/img/svg.png';
-import circular from '../accets/img/circular.png'
+import circular from '../accets/img/circular.png';
+import table from '../accets/img/table.png'
 
 
 export const points = ['e', 'w', 's', 'n', 'ne', 'nw', 'se', 'sw'];
@@ -70,4 +71,49 @@ export const list=[
     borderRadius:'50%',
     border:'1px solid #000'
   },
+  {
+    type:'table',
+    name:'表格',
+    icon:table,
+    width: 260,
+    height: 120,
+    background: 'none',
+    left: 20,
+    rotate:0,
+    top: 0,
+    zIndex:1
+  },
+]
+
+export const tableData=[
+  {
+      type:'th',
+  },
+  {
+      type:'th',
+  },{
+      type:'th',
+  },{
+      type:'th',
+  },
+  {
+      type:'td',
+  },
+  {
+      type:'td',
+  },{
+      type:'td',
+  },{
+      type:'td',
+  },
+  {
+      type:'td',
+  },
+  {
+      type:'td',
+  },{
+      type:'td',
+  },{
+      type:'td',
+  }
 ]
