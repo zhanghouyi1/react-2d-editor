@@ -1,6 +1,7 @@
 import React,{ useState,useRef,createContext,useContext} from 'react';
 
-import {transform,throttle,calculateSingleElementPosition,calculateRotation} from '../../utils/utils'
+import {transform,throttle} from '../../utils/utils'
+import {calculateSingleElementPosition,calculateRotation} from '../../utils/calculation'
 import {_Component} from '../../utils/loadComponent'
 import {points,vertex,opposition} from '../../utils/data'
 import {Context} from '../../App';
@@ -36,7 +37,9 @@ function Board() {
   const [txtDom,setTxtDom]=useState(null);
   //数据
   const {data,setData}=useContext(Context);
-
+  //画布dom
+  const editor=useRef();
+  const editorOffset=useRef({})
   //
   const unitVectorData=useRef()
   const targetData=useRef()
@@ -100,13 +103,14 @@ function Board() {
     const a = Math.sqrt(unitVector.x * unitVector.x + unitVector.y * unitVector.y);
       unitVector.x /= a;
       unitVector.y /= a;
-    unitVectorData.current=unitVector
+    unitVectorData.current=unitVector;
+    editorOffset.current=editor.current.getBoundingClientRect()
   }
 // 鼠标移动
   const onMouseMove = throttle((e) => {
     // 判断鼠标是否按住
     if (!isDown.current) return;
-    let newStyle = transform(direction, oriPos, e,txtDom,unitVectorData.current,targetData.current,oppositeData.current);
+    let newStyle = transform(direction, oriPos, e,txtDom,unitVectorData.current,targetData.current,oppositeData.current,editorOffset);
     /**字体的改变只有 点击四个斜方向的角才会出现字体大小改变 其他方向操作只会改变区域操作 */
     setStyle(newStyle);
     /**这里导致了数据的变化 会有问题吗 */
@@ -124,7 +128,7 @@ function Board() {
 
  /**双击事件 */
   return <BoardContext.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,checkTxt}}>
-    <div className="drawing-wrap" onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
+    <div className="drawing-wrap" ref={editor} onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
             {
               data.map((item,index)=>_Component(item,index))
             }

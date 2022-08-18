@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 13:51:58
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-17 16:00:27
+ * @LastEditTime: 2022-08-18 15:15:58
  * @FilePath: /2d-ediotor/src/components/Img/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -58,16 +58,16 @@ export default function Svg({item,index}){
     key={item.type} 
     src={svg}
     style={{
-        position:item.position,
-        width:item.width+'px',
-        height:item.height+'px',
-        left:item.left+'px',
-        top:item.top+'px',
-        transform:`rotate(${item.rotate}deg)`,
+        position:'absolute',
+        width:width+'px',
+        height:height+'px',
+        left:left+'px',
+        top:top+'px',
+        transform:`rotate(${rotate}deg)`,
         background:item.background
     }}  
     onMouseDown={checkElement}>
-       <div style={{ width:item.width+'px',
-        height:item.height+'px',}} dangerouslySetInnerHTML={{__html:result}}></div>
+       <div style={{ width:width+'px',
+        height:height+'px'}} dangerouslySetInnerHTML={{__html:result}}></div>
     </div>
 }
