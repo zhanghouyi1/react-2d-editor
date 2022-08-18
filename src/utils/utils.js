@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-07-29 16:28:12
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-16 18:06:42
+ * @LastEditTime: 2022-08-18 09:46:05
  * @FilePath: /test-zu/src/utils/utils.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,16 +14,16 @@
  * @param e        事件event
  */
 // eslint-disable-next-line react-hooks/exhaustive-deps
-export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,opposite)=>{
+export const transform=(direction, oriPos, e,txtDom,unitVector,target,opposite)=>{
     const {top,left,cX,cY,width,height,rotate}=oriPos.current;
-    console.log('oriPos',oriPos)
     const style = {...oriPos.current}
-    console.log('original',original)
+    const eX=e.clientX;
+    const eY=e.clientY
     // /data.style.fontSize = (data.style.width / originWidth) * fontSize; 字体计算方式 originWidth 初始长度
-    const offsetX = e.clientX - oriPos.current.cX;
-    const offsetY = e.clientY - oriPos.current.cY;
+    const offsetX = eX - oriPos.current.cX;
+    const offsetY = eY - oriPos.current.cY;
 
-    const centerX=left+width/2
+    const centerX=(left+200)+width/2
     const centerY=top+height/2
 
     const moveVector = {
@@ -64,18 +64,17 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
             // 向右拖拽添加宽度
             style.width = _newTarget.x - newOpposite.x;
             style.left = newOpposite.x;
-            style.top = newOpposite.y - original.current.height / 2;
+            style.top = newOpposite.y - oriPos.current.height / 2;
             if(txtDom){
                 style.height = txtDom.clientHeight;
             }
             return style
         // 西
         case 'w':
-            console.log('original.current.height',original.current.height)
             // 增加宽度、位置同步左移
             style.width = newOpposite.x - _newTarget.x;
             style.left = _newTarget.x;
-            style.top = _newTarget.y - original.current.height / 2;
+            style.top = _newTarget.y - oriPos.current.height / 2;
             if(txtDom){
                 style.height = txtDom.clientHeight;
             }
@@ -83,13 +82,13 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
         // 南
         case 's':
             style.height = _newTarget.y - newOpposite.y;
-            style.left = newOpposite.x - original.current.width / 2;
+            style.left = newOpposite.x - oriPos.current.width / 2;
             style.top = newOpposite.y;
             return style
         // 北
         case 'n':
             style.height = newOpposite.y - _newTarget.y;
-        style.left = _newTarget.x - original.current.width / 2;
+        style.left = _newTarget.x - oriPos.current.width / 2;
         style.top = _newTarget.y;
             break
         // 东北
@@ -98,7 +97,7 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
             style.height = newOpposite.y - _newTarget.y;
             style.left = newOpposite.x;
             style.top = _newTarget.y;
-            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
+            style.fontSize=oriPos.current.fontSize?(style.width / oriPos.current.width) * (oriPos.current.fontSize||20):0
             break
         // 西北
         case 'nw':
@@ -106,7 +105,7 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
             style.height = newOpposite.y - _newTarget.y;
             style.left = _newTarget.x;
             style.top = _newTarget.y;
-            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
+            style.fontSize=oriPos.current.fontSize?(style.width / oriPos.current.width) * (oriPos.current.fontSize||20):0
             break
         // 东南
         case 'se':
@@ -116,7 +115,7 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
             style.top = newOpposite.y;
             // style.width += offsetX;
             // style.height = style.width/radio;
-            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
+            style.fontSize=oriPos.current.fontSize?(style.width / oriPos.current.width) * (oriPos.current.fontSize||20):0
             break
         // 西南
         case 'sw':
@@ -124,11 +123,11 @@ export const transform=(direction, oriPos, e,original,txtDom,unitVector,target,o
             style.height = -newOpposite.y + _newTarget.y;
             style.left = _newTarget.x;
             style.top = newOpposite.y;
-            style.fontSize=original.current.fontSize?(style.width / original.current.width) * (original.current.fontSize||20):0
+            style.fontSize=oriPos.current.fontSize?(style.width / oriPos.current.width) * (oriPos.current.fontSize||20):0
             break
         case 'rotate':
-            const curX=e.clientX;
-            const curY=e.clientY;
+            const curX=eX;
+            const curY=eY;
             // 旋转后的角度
             const rotateDegreeAfter = Math.atan2(curY - centerY, curX - centerX) / (Math.PI / 180)
             const result = rotate + rotateDegreeAfter - rotateDegreeBefore
