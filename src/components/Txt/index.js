@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 14:40:36
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-18 15:15:03
+ * @LastEditTime: 2022-08-19 10:00:26
  * @FilePath: /2d-ediotor/src/components/Txt/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -17,6 +17,7 @@ export default function Txt({item,index}){
     let _ref=useRef()
     /**双击事件 */
     const doubleClick=()=>{
+        console.log('_ref',_ref)
         setEnable(true)
     }
     /**单击事件 */

@@ -123,6 +123,14 @@ function Board() {
     isDown.current = false;
   }
   const doubleClick=()=>{
+    if(txtDom){
+      const selection = window.getSelection() //
+      const range = document.createRange()
+      range.selectNodeContents(txtDom)
+      selection.removeAllRanges()
+      selection.addRange(range);
+    }
+   
     setCheckTxt(true)
   }
 

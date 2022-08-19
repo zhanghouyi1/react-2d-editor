@@ -2,14 +2,14 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-18 17:14:40
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-18 18:10:46
+ * @LastEditTime: 2022-08-19 14:24:35
  * @FilePath: /2d-ediotor/src/components/Table/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
 
 import {BoardContext} from '../../pages/Board/index';
-import {useContext,useState} from 'react';
+import {useContext,useState,useRef} from 'react';
 import {tableData} from '../../utils/data'
 import './index.css'
 
@@ -17,6 +17,7 @@ export const Table=({item,index})=>{
     const {setStyle,currentCom,setIndex,setShow,checkTxt}=useContext(BoardContext);
     const {left,top,width,height,rotate,fontSize,zIndex}=item
     const [enable,setEnable]=useState(false);
+    const txt=useRef()
     const th=tableData.filter(item=>item.type==='th');
   
     const liWidth=width/th.length;
@@ -24,6 +25,11 @@ export const Table=({item,index})=>{
 
     /**双击事件 */
     const doubleClick=()=>{
+        // const selection = window.getSelection() //
+        // const range = document.createRange()
+        // range.selectNodeContents(txt[0])
+        // selection.removeAllRanges()
+        // selection.addRange(range);
         setEnable(true)
     }
     /**单击事件 */
@@ -74,6 +80,7 @@ export const Table=({item,index})=>{
         
         >
             <div
+            ref={txt}
             onMouseDown={checkElement}
             onBlur={blurHandle}
             onInput={handleInput}
