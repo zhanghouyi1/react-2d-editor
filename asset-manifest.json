@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/editor/static/css/main.2afe6275.css",
+    "main.js": "/editor/static/js/main.3005d122.js",
+    "static/js/787.c63b6941.chunk.js": "/editor/static/js/787.c63b6941.chunk.js",
+    "static/media/YUNFENFEIYUNTI.svg": "/editor/static/media/YUNFENFEIYUNTI.2d0b92846a7bae9978c3.svg",
+    "static/media/YUNFENFEIYUNTI.eot": "/editor/static/media/YUNFENFEIYUNTI.0b449d334a1cd45ff1f9.eot",
+    "static/media/YUNFENFEIYUNTI.ttf": "/editor/static/media/YUNFENFEIYUNTI.236d90474c42a7c4a9d9.ttf",
+    "static/media/YUNFENFEIYUNTI.woff": "/editor/static/media/YUNFENFEIYUNTI.0f8438f306f8f5fa1fe1.woff",
+    "static/media/YUNFENFEIYUNTI.woff2": "/editor/static/media/YUNFENFEIYUNTI.bca5828555fbe30c3e54.woff2",
+    "static/media/bs.svg": "/editor/static/media/bs.0b2a3b15bfd0b7e55417ceab1fcf5882.svg",
+    "index.html": "/editor/index.html",
+    "main.2afe6275.css.map": "/editor/static/css/main.2afe6275.css.map",
+    "main.3005d122.js.map": "/editor/static/js/main.3005d122.js.map",
+    "787.c63b6941.chunk.js.map": "/editor/static/js/787.c63b6941.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2afe6275.css",
+    "static/js/main.3005d122.js"
+  ]
+}
