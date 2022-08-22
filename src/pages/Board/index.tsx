@@ -10,6 +10,8 @@ import {Variable,Style,Calculate,Rect} from '../../utils/Interface'
 
 export const BoardContext=createContext<Variable>({});
 export const Board:React.FC=()=> {
+  //数据
+  const {data,setData,index,setIndex}=useContext(Context);
  // 画板的
   const [style, setStyle] = useState<Style>({
     left: 100,
@@ -20,8 +22,7 @@ export const Board:React.FC=()=> {
   })
   // 初始数据， 因为不需要重新render 所以用 useRef
   const oriPos = useRef<Style>()
-  //选择了哪个 元素的坐标
-  const [index,setIndex]=useState<number>(0);
+  
   //控制选择框的显示
   const [show,setShow]=useState<Boolean>(false);
   //是否按下
@@ -32,8 +33,7 @@ export const Board:React.FC=()=> {
   const currentCom=useRef<HTMLElement>(null);
   //如果是文字的话 要存下当前的dom 实时获取dom 的宽高 
   const [txtDom,setTxtDom]=useState<HTMLElement>();
-  //数据
-  const {data,setData}=useContext(Context);
+  
   //画布dom
   const editor=useRef<HTMLDivElement>();
   const editorOffset=useRef<Rect|null>()
@@ -54,6 +54,7 @@ export const Board:React.FC=()=> {
       setShow(false);
       setTxtDom(null);
       setCheckTxt(false)
+      setIndex(null)
       // currentCom.current=null;
       return 
     }

@@ -30,7 +30,9 @@ export interface Variable{
     show?:Boolean,
     setShow?:Function,
     setTxtDom?:Function,
-    checkTxt?:Boolean
+    checkTxt?:Boolean,
+    currentItem?:Child,
+    index?:number
 }
 
 
@@ -52,7 +54,7 @@ export interface Child{
     rotate?:number,
     top?: number,
     txt?:string,
-    borderRadius?:string,
+    borderRadius?:number,
     border?:string
     fontSize?:number,
     zIndex?:number,

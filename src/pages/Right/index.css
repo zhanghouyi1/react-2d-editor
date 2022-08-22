@@ -1,0 +1,14 @@
+.operation .title{
+    margin-bottom: 20px;
+    font-size: 14px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #666;
+}
+.operation-list li{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+}
+.operation-list li .label{
+    margin-right: 10px;
+}

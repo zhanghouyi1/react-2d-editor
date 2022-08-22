@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-02 10:02:46
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-22 14:23:56
+ * @LastEditTime: 2022-08-22 17:25:04
  * @FilePath: /test-zu/src/utils/data.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,6 +33,7 @@ export const list:Child[]=[
     background: 'red',
     left: 0,
     rotate:0,
+    borderRadius:0,
     top: 0,
   },
   {
@@ -44,6 +45,7 @@ export const list:Child[]=[
     left: 0,
     rotate:0,
     top: 0,
+    borderRadius:0,
     zIndex:1
   },
   {
@@ -56,6 +58,7 @@ export const list:Child[]=[
     left: 300,
     rotate:0,
     top: 300,
+    borderRadius:0,
     icon:svg,
   },
   {
@@ -68,7 +71,7 @@ export const list:Child[]=[
     left: 20,
     rotate:0,
     top: 80,
-    borderRadius:'50%',
+    borderRadius:50,
     border:'1px solid #000'
   },
   {
@@ -81,6 +84,7 @@ export const list:Child[]=[
     left: 20,
     rotate:0,
     top: 0,
+    borderRadius:0,
     zIndex:1
   },
 ]

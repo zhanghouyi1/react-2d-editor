@@ -1,0 +1,19 @@
+.count{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+}
+.count input{
+    width: 60px;
+    height: 36px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    text-align: center;
+    color: #666;
+}
+.reduce{
+    font-size: 26px;
+    line-height: 36px;
+    padding: 0 20px;
+    cursor: pointer;
+}
