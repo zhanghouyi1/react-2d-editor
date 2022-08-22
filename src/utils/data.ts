@@ -2,11 +2,11 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-02 10:02:46
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-18 17:55:02
+ * @LastEditTime: 2022-08-22 14:23:56
  * @FilePath: /test-zu/src/utils/data.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import bs from '../bs.svg'
+import bs from '../accets/svg/bs.svg'
 import img from '../accets/img/img.png';
 import txt from '../accets/img/txt.png';
 import svg from '../accets/img/svg.png';
@@ -28,7 +28,7 @@ export const list:Child[]=[
     name:'图片',
     icon:img,
     width: 300,
-    url:require('../1.png'),
+    url:require('../accets/img/1.png'),
     height: 200,
     background: 'red',
     left: 0,
