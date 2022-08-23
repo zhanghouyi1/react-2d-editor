@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-18 17:14:40
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-19 14:24:35
+ * @LastEditTime: 2022-08-23 15:27:15
  * @FilePath: /2d-ediotor/src/components/Table/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,7 +16,7 @@ import './index.css'
 
 export const Table:React.FC<Props>=({item,index})=>{
     const {setStyle,currentCom,setIndex,setShow,checkTxt}=useContext(BoardContext);
-    const {left,top,width,height,rotate,fontSize,zIndex}=item
+    const {left,top,width,height,rotate,fontSize,zIndex,opacity}=item
     const [enable,setEnable]=useState<boolean >(false);
     const txt=useRef<HTMLDivElement>()
     const th:TableData[]=tableData.filter(item=>item.type==='th');
@@ -60,13 +60,14 @@ export const Table:React.FC<Props>=({item,index})=>{
     onMouseDown={checkElement}
         style={{
             position:'absolute',
-            width:(item.width+1)+'px',
-            height:item.height+'px',
-            left:item.left+'px',
-            top:item.top+'px',
-            transform:`rotate(${item.rotate}deg)`,
+            width:width+1+'px',
+            height:height+'px',
+            left:left+'px',
+            top:top+'px',
+            transform:`rotate(${rotate}deg)`,
             zIndex:checkTxt?1100:zIndex,
-            background:item.background
+            background:item.background,
+            opacity:opacity
          }}  >
         {tableData.map((item,index)=><li 
         key={index} className={item.type}

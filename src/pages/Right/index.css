@@ -8,6 +8,8 @@
     display: flex;
     display: -webkit-flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
 }
 .operation-list li .label{
     margin-right: 10px;

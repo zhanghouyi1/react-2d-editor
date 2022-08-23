@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 13:51:58
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-22 17:00:22
+ * @LastEditTime: 2022-08-23 15:26:23
  * @FilePath: /2d-ediotor/src/components/Img/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -22,7 +22,7 @@ const readFile = (filePath:string):any => {
 };
 export const Svg:React.FC<Props>=({item,index})=>{
     const {setStyle,currentCom,setIndex,setShow,setTxtDom}=useContext(BoardContext);
-    const {left,top,width,height,url,rotate,borderRadius}=item;
+    const {left,top,width,height,url,rotate,borderRadius,opacity}=item;
     
     let svgFile:any=readFile(url);
     let result:string=''
@@ -65,7 +65,8 @@ export const Svg:React.FC<Props>=({item,index})=>{
         top:top+'px',
         transform:`rotate(${rotate}deg)`,
         background:item.background,
-        borderRadius:`${borderRadius}%`
+        borderRadius:`${borderRadius}%`,
+        opacity:opacity
     }}  
     onMouseDown={checkElement}>
        <div style={{ width:width+'px',

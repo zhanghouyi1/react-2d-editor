@@ -1,3 +1,11 @@
+/*
+ * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @Date: 2022-08-22 14:26:48
+ * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @LastEditTime: 2022-08-23 15:15:43
+ * @FilePath: /react-2d-editor/src/pages/Right/index.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import React,{useContext} from "react";
 import {Context} from '../../App';
 import {Child} from '../../utils/Interface';
@@ -25,8 +33,8 @@ interface Type{
         item=data[index];
         console.log()
     }
-    const getCount=(e:number):void=>{
-        data[index].borderRadius=e
+    const getCount=(e:number,type:string):void=>{
+        data[index][type]=e;
         const arr=[].concat(data);
         setData(arr)
     }
@@ -37,7 +45,11 @@ interface Type{
             <ul className="operation-list">
                 <li>
                     <div className="label">圆角: </div>
-                    <Counter count={item.borderRadius} onCallBack={getCount} />
+                    <Counter count={item.borderRadius} difference={1} type='borderRadius' onCallBack={getCount} />
+                </li>
+                <li>
+                    <div className="label">透明度: </div>
+                    <Counter count={item.opacity} difference={0.1} type='opacity' onCallBack={getCount} />
                 </li>
             </ul>
         </div>

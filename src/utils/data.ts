@@ -1,5 +1,13 @@
 /*
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @Date: 2022-08-22 14:18:50
+ * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @LastEditTime: 2022-08-23 15:03:04
+ * @FilePath: /react-2d-editor/src/utils/data.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
+ * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-02 10:02:46
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
  * @LastEditTime: 2022-08-22 17:25:04
@@ -35,6 +43,7 @@ export const list:Child[]=[
     rotate:0,
     borderRadius:0,
     top: 0,
+    opacity:1
   },
   {
     type:'txt',
@@ -46,7 +55,8 @@ export const list:Child[]=[
     rotate:0,
     top: 0,
     borderRadius:0,
-    zIndex:1
+    zIndex:1,
+    opacity:1
   },
   {
     type:'svg',
@@ -60,6 +70,7 @@ export const list:Child[]=[
     top: 300,
     borderRadius:0,
     icon:svg,
+    opacity:1
   },
   {
     type:'div',
@@ -72,7 +83,8 @@ export const list:Child[]=[
     rotate:0,
     top: 80,
     borderRadius:50,
-    border:'1px solid #000'
+    border:'1px solid #000',
+    opacity:1
   },
   {
     type:'table',
@@ -85,7 +97,8 @@ export const list:Child[]=[
     rotate:0,
     top: 0,
     borderRadius:0,
-    zIndex:1
+    zIndex:1,
+    opacity:1
   },
 ]
 

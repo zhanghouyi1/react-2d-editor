@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-2d-editor/static/css/main.1a081a0d.css",
+    "main.css": "/react-2d-editor/static/css/main.4c2147af.css",
     "main.js": "/react-2d-editor/static/js/main.2b45648f.js",
     "static/js/787.c63b6941.chunk.js": "/react-2d-editor/static/js/787.c63b6941.chunk.js",
     "static/media/YUNFENFEIYUNTI.svg": "/react-2d-editor/static/media/YUNFENFEIYUNTI.1e8921c0fe599401268f.svg",
@@ -10,12 +10,12 @@
     "static/media/YUNFENFEIYUNTI.woff2": "/react-2d-editor/static/media/YUNFENFEIYUNTI.bca5828555fbe30c3e54.woff2",
     "static/media/bs.svg": "/react-2d-editor/static/media/bs.2b2f38d6522cbaf1fb77b1ff4925fb35.svg",
     "index.html": "/react-2d-editor/index.html",
-    "main.1a081a0d.css.map": "/react-2d-editor/static/css/main.1a081a0d.css.map",
+    "main.4c2147af.css.map": "/react-2d-editor/static/css/main.4c2147af.css.map",
     "main.2b45648f.js.map": "/react-2d-editor/static/js/main.2b45648f.js.map",
     "787.c63b6941.chunk.js.map": "/react-2d-editor/static/js/787.c63b6941.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a081a0d.css",
+    "static/css/main.4c2147af.css",
     "static/js/main.2b45648f.js"
   ]
 }

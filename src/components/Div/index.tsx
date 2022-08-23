@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 13:52:03
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-22 17:00:41
+ * @LastEditTime: 2022-08-23 15:25:56
  * @FilePath: /test-zu/src/components/Div/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,7 +13,7 @@ import {Props} from '../../utils/Interface'
 export const Div:React.FC<Props>=(props)=>{
     const {item,index}=props
     const {setStyle,currentCom,setIndex,setShow,setTxtDom}=useContext(BoardContext);
-    const {left,top,width,height,rotate}=item;
+    const {left,top,width,height,rotate,border,borderRadius,opacity}=item;
     let obj={left,top,width,height,rotate}
     const checkElement=(e:React.MouseEvent<HTMLDivElement>):void=>{
         e.stopPropagation();
@@ -32,14 +32,15 @@ export const Div:React.FC<Props>=(props)=>{
     className='item' 
     style={{
         position:'absolute',
-        width:item.width+'px',
-        height:item.height+'px',
-        left:item.left+'px',
-        top:item.top+'px',
-        transform:`rotate(${item.rotate}deg)`,
+        width:width+'px',
+        height:height+'px',
+        left:left+'px',
+        top:top+'px',
+        transform:`rotate(${rotate}deg)`,
         background:item.background,
-        border:item.border,
-        borderRadius:`${item.borderRadius}%`
+        border:border,
+        borderRadius:`${borderRadius}%`,
+        opacity:opacity
     }}  
     onMouseDown={checkElement}></div>
 }

@@ -58,7 +58,8 @@ export interface Child{
     border?:string
     fontSize?:number,
     zIndex?:number,
-    id?:string
+    id?:string,
+    opacity?:number
 }
 
 export interface Props{

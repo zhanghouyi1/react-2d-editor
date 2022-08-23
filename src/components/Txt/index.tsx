@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-01 14:40:36
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-19 16:21:39
+ * @LastEditTime: 2022-08-23 15:27:37
  * @FilePath: /2d-ediotor/src/components/Txt/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,7 +14,7 @@ import './txt.css'
 export const Txt:React.FC<Props>=(props)=>{
     const {item,index}=props
     const {setStyle,currentCom,setIndex,setShow,setTxtDom,checkTxt,setData,data}=useContext(BoardContext);
-    const {left,top,width,height,rotate,fontSize,zIndex}=item
+    const {left,top,width,height,rotate,fontSize,zIndex,opacity}=item
     const [enable,setEnable]=useState(false);
 
     let _ref=useRef<HTMLDivElement>(null)
@@ -64,7 +64,8 @@ export const Txt:React.FC<Props>=(props)=>{
             background:item.background,
             fontSize:fontSize,
             zIndex:checkTxt?1100:zIndex,
-            transform:`rotate(${rotate}deg)`
+            transform:`rotate(${rotate}deg)`,
+            opacity
         }} 
         ref={_ref} 
         onMouseDown={checkElement}
