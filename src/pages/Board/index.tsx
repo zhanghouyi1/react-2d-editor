@@ -1,9 +1,8 @@
 import React,{ useState,useRef,createContext,useContext} from 'react';
 
 import {transform,throttle} from '../../utils/utils'
-import {calculateSingleElementPosition,calculateRotation} from '../../utils/calculation'
 import {component} from '../../utils/loadComponent'
-import {points,vertex,opposition} from '../../utils/data'
+import {points,vertex} from '../../utils/data'
 import {Context} from '../../App';
 import {Variable,Style,Calculate,Rect} from '../../utils/Interface'
 
@@ -39,8 +38,6 @@ export const Board:React.FC=()=> {
   const editorOffset=useRef<Rect|null>()
   //
   const unitVectorData=useRef<Calculate>()
-  const targetData=useRef<Calculate>()
-  const oppositeData=useRef<Calculate>()
 
   const [checkTxt,setCheckTxt]=useState<Boolean>(false)
 
@@ -70,45 +67,13 @@ export const Board:React.FC=()=> {
         ...style,
         cX, cY
     }
-
-    let target:Calculate=calculateSingleElementPosition(direction.current,style);
-    let opposite:Calculate = calculateSingleElementPosition(opposition[direction.current],style);
-    const designCenter = {
-      x: style.left + style.width / 2,
-      y: style.top + style.height / 2,
-    };
-    target = calculateRotation(
-      target.x,
-      target.y,
-      designCenter.x,
-      designCenter.y,
-      style.rotate || 0
-    );
-    targetData.current=target
-    opposite = calculateRotation(
-      opposite.x,
-      opposite.y,
-      designCenter.x,
-      designCenter.y,
-      style.rotate || 0
-    );
-    oppositeData.current=opposite
-    // 计算单位向量
-    const unitVector:Calculate = {
-      x: target.x - opposite.x,
-      y: target.y - opposite.y,
-    };
-    const a:number = Math.sqrt(unitVector.x * unitVector.x + unitVector.y * unitVector.y);
-      unitVector.x /= a;
-      unitVector.y /= a;
-    unitVectorData.current=unitVector;
     editorOffset.current=editor.current.getBoundingClientRect()
   }
 // 鼠标移动
   const onMouseMove = throttle((e:React.MouseEvent<HTMLDivElement>):void => {
     // 判断鼠标是否按住
     if (!isDown.current) return;
-    let newStyle:Style = transform(direction, oriPos, e,txtDom,unitVectorData,targetData,oppositeData,editorOffset);
+    let newStyle:Style = transform(direction, oriPos, e,txtDom,unitVectorData);
     /**字体的改变只有 点击四个斜方向的角才会出现字体大小改变 其他方向操作只会改变区域操作 */
     setStyle(newStyle);
     /**这里导致了数据的变化 会有问题吗 */
