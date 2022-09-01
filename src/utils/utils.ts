@@ -2,11 +2,11 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-07-29 16:28:12
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-18 16:19:51
+ * @LastEditTime: 2022-08-31 15:28:35
  * @FilePath: /test-zu/src/utils/utils.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import {calculateRotation} from './calculation'
+import {summation} from './calculation'
 import {Style,Rect,Calculate} from '../utils/Interface'
 import { RefObject,MouseEvent} from 'react';
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -15,9 +15,7 @@ export const transform = (
   oriPos:RefObject<Style>, 
   e:MouseEvent<HTMLDivElement>, 
   txtDom:HTMLElement, 
-  unitVector:RefObject<Calculate>, 
-  target:RefObject<Calculate>, 
-  opposite:RefObject<Calculate>,
+  vectorData:RefObject<Calculate>, 
   editorOffset:RefObject<Rect>):Style => {
   const {
     top,
@@ -36,29 +34,11 @@ export const transform = (
   // /data.style.fontSize = (data.style.width / originWidth) * fontSize; 字体计算方式 originWidth 初始长度
   const offsetX:number = eX - oriPos.current.cX;
   const offsetY:number = eY - oriPos.current.cY;
-  /**计算中心点 */
+  /**计算画布editor中心点 之前是元素的中心点 */
   const centerX:number = (left + editorOffset.current.left) + width / 2
   const centerY:number = (top+editorOffset.current.top) + height / 2
-
-  const moveVector:Calculate = {
-    x: (offsetX * unitVector.current.x + offsetY * unitVector.current.y) * unitVector.current.x,
-    y: (offsetX * unitVector.current.x + offsetY * unitVector.current.y) * unitVector.current.y,
-  };
-  const newTarget:Calculate = {
-    x: target.current.x + moveVector.x,
-    y: target.current.y + moveVector.y,
-  };
-  const cx:number = (newTarget.x + opposite.current.x) / 2;
-  const cy:number = (newTarget.y + opposite.current.y) / 2;
-  const _newTarget:Calculate = calculateRotation(newTarget.x, newTarget.y, cx, cy, -style.rotate);
-
-  const newOpposite:Calculate = calculateRotation(
-    opposite.current.x,
-    opposite.current.y,
-    cx,
-    cy,
-    -style.rotate
-  );
+  let result=summation(vectorData.current,offsetX,offsetY,style.rotate )
+  const {start,end}=result
   /**旋转前的角度 */
   const rotateDegreeBefore:number = Math.atan2(cY - centerY, cX - centerX) / (Math.PI / 180);
 
@@ -76,9 +56,9 @@ export const transform = (
       // 东
     case 'e':
       // 向右拖拽添加宽度
-      style.width = _newTarget.x - newOpposite.x;
-      style.left = newOpposite.x;
-      style.top = newOpposite.y - oriPos.current.height / 2;
+      style.width = start.x - end.x;
+      style.left = end.x;
+      style.top = end.y - oriPos.current.height / 2;
       if (txtDom) {
         style.height = txtDom.clientHeight;
       }
@@ -86,57 +66,57 @@ export const transform = (
       // 西
     case 'w':
       // 增加宽度、位置同步左移
-      style.width = newOpposite.x - _newTarget.x;
-      style.left = _newTarget.x;
-      style.top = _newTarget.y - oriPos.current.height / 2;
+      style.width = end.x - start.x;
+      style.left = start.x;
+      style.top = start.y - oriPos.current.height / 2;
       if (txtDom) {
         style.height = txtDom.clientHeight;
       }
       return style
       // 南
     case 's':
-      style.height = _newTarget.y - newOpposite.y;
-      style.left = newOpposite.x - oriPos.current.width / 2;
-      style.top = newOpposite.y;
+      style.height = start.y - end.y;
+      style.left = end.x - oriPos.current.width / 2;
+      style.top = end.y;
       return style
       // 北
     case 'n':
-      style.height = newOpposite.y - _newTarget.y;
-      style.left = _newTarget.x - oriPos.current.width / 2;
-      style.top = _newTarget.y;
+      style.height = end.y - start.y;
+      style.left = start.x - oriPos.current.width / 2;
+      style.top = start.y;
       break
       // 东北
     case 'ne':
-      style.width = -newOpposite.x + _newTarget.x;
-      style.height = newOpposite.y - _newTarget.y;
-      style.left = newOpposite.x;
-      style.top = _newTarget.y;
+      style.width = -end.x + start.x;
+      style.height = end.y - start.y;
+      style.left = end.x;
+      style.top = start.y;
       style.fontSize = oriPos.current.fontSize ? (style.width / oriPos.current.width) * (oriPos.current.fontSize || 20) : 0
       break
       // 西北
     case 'nw':
-      style.width = newOpposite.x - _newTarget.x;
-      style.height = newOpposite.y - _newTarget.y;
-      style.left = _newTarget.x;
-      style.top = _newTarget.y;
+      style.width = end.x - start.x;
+      style.height = end.y - start.y;
+      style.left = start.x;
+      style.top = start.y;
       style.fontSize = oriPos.current.fontSize ? (style.width / oriPos.current.width) * (oriPos.current.fontSize || 20) : 0
       break
       // 东南
     case 'se':
-      style.width = -newOpposite.x + _newTarget.x;
-      style.height = -newOpposite.y + _newTarget.y;
-      style.left = newOpposite.x;
-      style.top = newOpposite.y;
+      style.width = -end.x + start.x;
+      style.height = -end.y + start.y;
+      style.left = end.x;
+      style.top = end.y;
       // style.width += offsetX;
       // style.height = style.width/radio;
       style.fontSize = oriPos.current.fontSize ? (style.width / oriPos.current.width) * (oriPos.current.fontSize || 20) : 0
       break
       // 西南
     case 'sw':
-      style.width = newOpposite.x - _newTarget.x;
-      style.height = -newOpposite.y + _newTarget.y;
-      style.left = _newTarget.x;
-      style.top = newOpposite.y;
+      style.width = end.x - start.x;
+      style.height = -end.y + start.y;
+      style.left = start.x;
+      style.top = end.y;
       style.fontSize = oriPos.current.fontSize ? (style.width / oriPos.current.width) * (oriPos.current.fontSize || 20) : 0
       break
     case 'rotate':

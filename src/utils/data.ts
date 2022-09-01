@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-22 14:18:50
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-23 15:03:04
+ * @LastEditTime: 2022-08-31 14:32:42
  * @FilePath: /react-2d-editor/src/utils/data.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -24,9 +24,6 @@ import {Child,TableData} from './Interface'
 
 export const points:Array<string> = ['e', 'w', 's', 'n', 'ne', 'nw', 'se', 'sw'];
 export const vertex:Array<string> = ['e', 'w', 'ne', 'nw', 'se', 'sw'];
-export const opposition:object={
-  e:'w', w:'e', s:'n', n:'s', ne:'sw', nw:'se', se:'nw', sw:'ne'
-}
 
 
 /**左侧数据 */
@@ -36,7 +33,7 @@ export const list:Child[]=[
     name:'图片',
     icon:img,
     width: 300,
-    url:require('../accets/img/1.png'),
+    url:require('../accets/img/1913.jpeg'),
     height: 200,
     background: 'red',
     left: 0,
