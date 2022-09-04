@@ -5,3 +5,4 @@ node_modules
 .history
 .DS_Store
 build
+build/index.html
