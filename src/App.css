@@ -1,7 +1,15 @@
+.draw-containt{
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .drawing-wrap{
-  min-width: 1200px;
-  max-width: 100%;
-  height: 740px;
+  /* width: 512px;
+  height: 512px; */
   position: relative;
   top: 0px ;
   left: 0px;
@@ -131,7 +139,7 @@
 }
 .middle-containt{
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   overflow: auto;
 }
 

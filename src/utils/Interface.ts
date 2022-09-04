@@ -32,7 +32,11 @@ export interface Variable{
     setTxtDom?:Function,
     checkTxt?:Boolean,
     currentItem?:Child,
-    index?:number
+    index?:number,
+    editor?:any,
+    editorMain?:any,
+    wh?:any,
+    setWh?:Function
 }
 
 

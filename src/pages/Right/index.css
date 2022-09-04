@@ -14,3 +14,7 @@
 .operation-list li .label{
     margin-right: 10px;
 }
+.wh{
+    display: flex;
+    align-items: center;
+}

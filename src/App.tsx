@@ -6,7 +6,7 @@
  * @FilePath: /2d-ediotor/src/App.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import React,{ useState,createContext} from 'react';
+import React,{ useState,createContext,useRef} from 'react';
 import './App.css';
 import {Board} from './pages/Board';
 import {Left} from './pages/Left/index'
@@ -16,6 +16,12 @@ import {Child,Variable} from './utils/Interface'
 
 export const Context=createContext<Variable>({});
 export const App:React.FC=()=>{
+   //画布dom
+  const editor=useRef<HTMLDivElement>();
+  //有效区域
+  const editorMain=useRef<HTMLDivElement>();
+  //全局宽高
+  const [wh,setWh]=useState<object>({width:0,height:0})
   const [data,setData]=useState<Child[]>([]);
   const [currentItem,setCurrentItem]=useState<Child>();
   //选择了哪个 元素的坐标
@@ -26,8 +32,12 @@ export const App:React.FC=()=>{
 
 const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
   let obj:Child={...currentItem};
-  obj.top = e.clientY
-  obj.left = e.clientX - 200;
+  
+  console.log('editor',editor.current.getBoundingClientRect())
+  console.log('editorMain',editorMain.current.getBoundingClientRect())
+
+  obj.top = e.clientY-editor.current.getBoundingClientRect().top
+  obj.left = e.clientX - editor.current.getBoundingClientRect().left;
   obj.id=generateID()
 
   const _d=data.concat([{...obj}])
@@ -35,7 +45,7 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
 }
 
  /**双击事件 */
-  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex}}>
+  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh}}>
     <main className='containt'>
       <section className='left-list'>
         <Left />

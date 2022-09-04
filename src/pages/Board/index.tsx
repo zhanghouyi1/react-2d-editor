@@ -1,4 +1,4 @@
-import React,{ useState,useRef,createContext,useContext} from 'react';
+import React,{ useState,useRef,createContext,useContext,useEffect} from 'react';
 
 import {transform,throttle} from '../../utils/utils'
 import {difference} from '../../utils/calculation'
@@ -11,7 +11,14 @@ import {Variable,Style,Calculate,Rect} from '../../utils/Interface'
 export const BoardContext=createContext<Variable>({});
 export const Board:React.FC=()=> {
   //数据
-  const {data,setData,index,setIndex}=useContext(Context);
+  const {data,setData,index,setIndex,editor,editorMain,setWh,wh}=useContext(Context);
+  useEffect(()=>{
+    let rect=editorMain.current.getBoundingClientRect()
+    setWh({
+      width:Number(rect.width-60),
+      height:Number(rect.height-60)
+    })
+  },[wh.w,wh.h])
  // 画板的
   const [style, setStyle] = useState<Style>({
     left: 100,
@@ -34,13 +41,10 @@ export const Board:React.FC=()=> {
   //如果是文字的话 要存下当前的dom 实时获取dom 的宽高 
   const [txtDom,setTxtDom]=useState<HTMLElement>();
   
-  //画布dom
-  const editor=useRef<HTMLDivElement>();
+ 
   const editorOffset=useRef<Rect|null>()
   //
   const vectorData=useRef<Calculate>()
-  const targetData=useRef<Calculate>()
-  const oppositeData=useRef<Calculate>()
 
   const [checkTxt,setCheckTxt]=useState<Boolean>(false)
 
@@ -109,16 +113,18 @@ export const Board:React.FC=()=> {
 
  /**双击事件 */
   return <BoardContext.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,checkTxt}}>
-    <div className="drawing-wrap" ref={editor} onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
-            {
-              data.map((item,index)=>component(item,index))
-            }
-            
-            {show?<div className="drawing-item" onDoubleClick={doubleClick} onMouseDown={onMouseDown.bind(this, 'move')} style={{width:style.width,height:style.height,top:style.top,left:style.left,transform:`rotate(${style.rotate}deg)`}}>
-            {(txtDom?vertex:points).map(item => <div key={item}  className={`control-point point-${item}`}  onMouseDown={onMouseDown.bind(this, item)}></div>)}
-            
-            <div className="control-point control-rotator" onMouseDown={onMouseDown.bind(this, 'rotate')}></div>
-        </div>:null}
-        </div>
+   <div className='draw-containt' ref={editorMain}>
+    <div className="drawing-wrap" style={{...wh}} ref={editor} onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
+              {
+                data.map((item,index)=>component(item,index))
+              }
+              
+              {show?<div className="drawing-item" onDoubleClick={doubleClick} onMouseDown={onMouseDown.bind(this, 'move')} style={{width:style.width,height:style.height,top:style.top,left:style.left,transform:`rotate(${style.rotate}deg)`}}>
+              {(txtDom?vertex:points).map(item => <div key={item}  className={`control-point point-${item}`}  onMouseDown={onMouseDown.bind(this, item)}></div>)}
+              
+              <div className="control-point control-rotator" onMouseDown={onMouseDown.bind(this, 'rotate')}></div>
+          </div>:null}
+          </div>
+   </div>
   </BoardContext.Provider> 
 }
