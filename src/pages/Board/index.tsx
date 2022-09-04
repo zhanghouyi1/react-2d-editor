@@ -1,7 +1,7 @@
 import React,{ useState,useRef,createContext,useContext} from 'react';
 
 import {transform,throttle} from '../../utils/utils'
-import {Position,difference} from '../../utils/calculation'
+import {difference} from '../../utils/calculation'
 import {component} from '../../utils/loadComponent'
 import {points,vertex} from '../../utils/data'
 import {Context} from '../../App';

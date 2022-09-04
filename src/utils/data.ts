@@ -33,7 +33,7 @@ export const list:Child[]=[
     name:'图片',
     icon:img,
     width: 300,
-    url:require('../accets/img/1913.jpeg'),
+    url:require('../accets/img/1.webp'),
     height: 200,
     background: 'red',
     left: 0,
