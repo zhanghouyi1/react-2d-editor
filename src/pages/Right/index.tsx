@@ -9,7 +9,7 @@
 import React,{useContext,useRef} from "react";
 import {Context} from '../../App';
 import {Child} from '../../utils/Interface';
-import {Counter} from '../../businessComponents/Counter/index'
+import {Counter} from '../../businessComponents/Counter/index';
 import './index.css'
 /**右侧操作面板 暂时 先加入 圆角透明等操作*/
 interface Type{
@@ -20,7 +20,7 @@ interface Type{
     div:string
 }
  export const Right:React.FC=()=>{
-    const {index,data,setData,setWh,wh}=useContext(Context);
+    const {index,data,setData,setWh,wh,setShowModal}=useContext(Context);
     const refW=useRef<HTMLInputElement>();
     const refH=useRef<HTMLInputElement>();
     let item:Child=null;
@@ -33,7 +33,7 @@ interface Type{
     }
     if(index>=0){
         item=data[index];
-        console.log()
+        console.log('item',item)
     }
     const getCount=(e:number,type:string):void=>{
         data[index][type]=e;
@@ -46,6 +46,9 @@ interface Type{
             height:Number(wh.height)
         });
      
+    }
+    const onShowCut=():void=>{
+        setShowModal(true)
     }
     const changeHandleH=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setWh({
@@ -67,16 +70,22 @@ interface Type{
                     <Counter count={item.opacity} difference={0.1} type='opacity' onCallBack={getCount} />
                 </li>
             </ul>
+            {item.type==='img'?<div className='cutItem'>
+               <div onClick={onShowCut}>裁剪</div>
+               {/* <div>裁剪</div>
+               <div>裁剪</div> */}
+            </div>:''}
         </div>
         :<div>
-            <div className='wh'>
+            {/* <div className='wh'>
             <div className="label">宽度: </div>
             <input ref={refW} value={wh.width} onChange={changeHandleW} type="text" />
             </div>
             <div className='wh'>
             <div className="label">长度: </div>
             <input ref={refH} value={wh.height} onChange={changeHandleH} type="text" />
-            </div>
+            </div> */}
+            未选择组件
         </div>}
     </div>
  }

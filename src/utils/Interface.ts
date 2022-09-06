@@ -36,7 +36,8 @@ export interface Variable{
     editor?:any,
     editorMain?:any,
     wh?:any,
-    setWh?:Function
+    setWh?:Function,
+    setShowModal?:Function
 }
 
 

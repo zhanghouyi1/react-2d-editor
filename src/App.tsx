@@ -12,6 +12,7 @@ import {Board} from './pages/Board';
 import {Left} from './pages/Left/index'
 import {Right} from './pages/Right/index'
 import {generateID} from './utils/utils'
+import {Modal} from './businessComponents/Modal/index'
 import {Child,Variable} from './utils/Interface'
 
 export const Context=createContext<Variable>({});
@@ -29,6 +30,8 @@ export const App:React.FC=()=>{
   const dragOver=(e:React.DragEvent<HTMLDivElement>)=>{
     e.preventDefault()
   }
+  /**弹窗显示 */
+  const [showModal,setShowModal]=useState<boolean>(false)
 
 const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
   let obj:Child={...currentItem};
@@ -45,7 +48,7 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
 }
 
  /**双击事件 */
-  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh}}>
+  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh,setShowModal}}>
     <main className='containt'>
       <section className='left-list'>
         <Left />
@@ -58,6 +61,7 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
       <section className="right-list">
         <Right />
       </section>
+      {showModal?<Modal />:''}
     </main>
   </Context.Provider> 
 }

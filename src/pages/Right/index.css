@@ -22,3 +22,19 @@
     border: 1px solid #999;
     border-radius: 4px;
 }
+.cutItem{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.cutItem div{
+    flex-basis: 45%;
+    height: 32px;
+    line-height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #666;
+    border-radius: 2px;
+    margin-bottom: 12px;
+}
