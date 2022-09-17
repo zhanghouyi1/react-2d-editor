@@ -1,7 +1,14 @@
+import { Interface } from 'readline';
 import {baseFnCos,baseFnSin} from './baseCal';
+import {Item,Calculate} from './Interface'
 
-export const next=(data)=>{
-    return (saga)=>{
+interface Next{
+  rotate:number,
+  center:Calculate
+}
+
+export const next=(data:Next)=>{
+    return (saga:Item)=>{
       const {rotate,center}=data;
       const {left,top}=saga;
      return {

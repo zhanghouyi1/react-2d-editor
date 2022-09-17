@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
+    position: relative;
 }
 .operation-list li .label{
     margin-right: 10px;
@@ -37,4 +38,16 @@
     border: 1px solid #666;
     border-radius: 2px;
     margin-bottom: 12px;
+}
+.colorTxt{
+    line-height: 23px;
+    padding: 0 10px;
+    border: 1px solid #eee;
+}
+.colorBack{
+    width: 60px;
+    height: 23px;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
 }

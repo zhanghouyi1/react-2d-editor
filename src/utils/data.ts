@@ -53,7 +53,8 @@ export const list:Child[]=[
     top: 0,
     borderRadius:0,
     zIndex:1,
-    opacity:1
+    opacity:1,
+    color:'#999'
   },
   {
     type:'svg',

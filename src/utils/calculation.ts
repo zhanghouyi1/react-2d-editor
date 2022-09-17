@@ -39,3 +39,50 @@ export const summation=(vectorData,offsetX,offsetY,angle)=>{
     end
   }
 }
+
+/**计算颜色值 */
+export const  getRgba=(h:number, s:number, v:number):Array<number>=>{
+  s = s / 100;
+  v = v / 100;
+
+  const _H:number = Math.floor(h / 60) % 6;
+  let f:number = h / 60 - _H;
+  let p:number = v * (1 - s);
+  let q:number = v * (1 - f * s);
+  let t:number = v * (1 - (1 - f) * s);
+  let r:number, g:number, b:number;
+  
+  switch (_H) {
+      case 0:
+          r = v;
+          g = t;
+          b = p;
+          break;
+      case 1:
+          r = q;
+          g = v;
+          b = p;
+          break;
+      case 2:
+          r = p;
+          g = v;
+          b = t;
+          break;
+      case 3:
+          r = p;
+          g = q;
+          b = v;
+          break;
+      case 4:
+          r = t;
+          g = p;
+          b = v;
+          break;
+      case 5:
+          r = v;
+          g = p;
+          b = q;
+          break;
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}

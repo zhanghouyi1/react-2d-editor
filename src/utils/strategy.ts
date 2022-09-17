@@ -1,5 +1,6 @@
 /**用于策略模式 */
-import {nwPosition,nePosition,swPosition,sePosition,nPosition,ePosition,sPosition,wPosition} from './calculFunc'
+import {nwPosition,nePosition,swPosition,sePosition,nPosition,ePosition,sPosition,wPosition} from './calculFunc';
+
 export const calPosition = {
     nw: nwPosition,
     ne: nePosition,

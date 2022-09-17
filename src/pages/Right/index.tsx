@@ -6,10 +6,11 @@
  * @FilePath: /react-2d-editor/src/pages/Right/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import React,{useContext,useRef} from "react";
+import React,{useContext,useRef, useState} from "react";
 import {Context} from '../../App';
 import {Child} from '../../utils/Interface';
 import {Counter} from '../../businessComponents/Counter/index';
+import {Color} from '../../businessComponents/Color/index'
 import './index.css'
 /**右侧操作面板 暂时 先加入 圆角透明等操作*/
 interface Type{
@@ -23,6 +24,7 @@ interface Type{
     const {index,data,setData,setWh,wh,setShowModal}=useContext(Context);
     const refW=useRef<HTMLInputElement>();
     const refH=useRef<HTMLInputElement>();
+    const visibility=useRef<boolean>(false)
     let item:Child=null;
     const type:Type={
         txt:'文字',
@@ -56,6 +58,19 @@ interface Type{
             height:Number(refH.current.value)
         });
     }
+    /**颜色选择 */
+    const checkColorChange=()=>{
+        visibility.current=true
+    }
+    const getColor=(e:string)=>{
+        console.log(e);
+        visibility.current=false;
+        data[index]['color']=e;
+        const arr=[].concat(data);
+        setData(arr)
+        
+        console.log('hahah',visibility)
+    }
     return <div className="operation">
         {item?
         <div>
@@ -69,12 +84,21 @@ interface Type{
                     <div className="label">透明度: </div>
                     <Counter count={item.opacity} difference={0.1} type='opacity' onCallBack={getCount} />
                 </li>
+                {item.color? <li>
+                    <div className="label">颜色: </div>
+                    <div className='colorTxt'>{item.color}</div>
+                    <div className='colorBack' onClick={checkColorChange} style={{background:item.color}}>
+                        {visibility.current?(<Color position={{top:'33px',right:'0px'}} colorChange={getColor} />):''}
+                    </div>
+                </li>:''}
             </ul>
             {item.type==='img'?<div className='cutItem'>
                <div onClick={onShowCut}>裁剪</div>
                {/* <div>裁剪</div>
                <div>裁剪</div> */}
             </div>:''}
+               {/* 颜色 */}
+            
         </div>
         :<div>
             {/* <div className='wh'>

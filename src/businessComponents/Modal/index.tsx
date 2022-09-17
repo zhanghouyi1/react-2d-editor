@@ -23,8 +23,8 @@ export const Modal:React.FC=()=>{
         if(e){
             setShowModal(false);
             data[index]['url']=e;
-        const arr=[].concat(data);
-        setData(arr)
+            const arr=[].concat(data);
+            setData(arr)
         }
     }
     return <div className='modal' onClick={onClose}>

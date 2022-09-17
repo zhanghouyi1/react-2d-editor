@@ -65,7 +65,8 @@ export const Txt:React.FC<Props>=(props)=>{
             fontSize:fontSize,
             zIndex:checkTxt?1100:zIndex,
             transform:`rotate(${rotate}deg)`,
-            opacity
+            opacity,
+            color:item.color
         }} 
         ref={_ref} 
         onMouseDown={checkElement}
