@@ -1,0 +1,64 @@
+<!--
+ * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @Date: 2021-10-20 10:44:02
+ * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @LastEditTime: 2022-09-14 17:49:10
+ * @FilePath: /public/index.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <style>
+        .con{
+            width: 800px;
+            height: 800px;
+            background: red;
+            margin: auto;
+        }
+        .chil{
+            width: 1024px;
+            height: 1024px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="con" id="a">
+        <div class="chil" id="b"></div>
+    </div>
+</body>
+<script>
+    let a=document.getElementById('a');
+    let b=document.getElementById('b');
+
+    let aStyle=a.getClientRects()[0];
+    let bStyle=b.getClientRects()[0];
+    let proportion=1;
+    //先判断是长大于宽还是宽大于长
+    let isAWidth=aStyle.width>=aStyle.height;
+    let isBWidth=bStyle.width>=bStyle.height;
+    if(isBWidth&&isAWidth){
+        if(bStyle.width>bStyle.height){
+            proportion=aStyle.width/bStyle.width
+        }else{
+            proportion=aStyle.height/bStyle.height
+        }
+    }else if(isBWidth&&!isAWidth){
+        console.log(3)
+        proportion=aStyle.width/bStyle.width
+        
+    }else if(!isBWidth&&isAWidth){
+        console.log(4)
+        proportion=aStyle.height/bStyle.height
+    }else{
+        proportion=aStyle.height/bStyle.height
+    }
+    
+    //是否大于父元素
+
+  
+    b.style.width=bStyle.width*proportion;
+    b.style.height=bStyle.height*proportion;
+</script>
+</html>

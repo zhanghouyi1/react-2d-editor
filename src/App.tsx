@@ -35,9 +35,6 @@ export const App:React.FC=()=>{
 
 const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
   let obj:Child={...currentItem};
-  
-  console.log('editor',editor.current.getBoundingClientRect())
-  console.log('editorMain',editorMain.current.getBoundingClientRect())
 
   obj.top = e.clientY-editor.current.getBoundingClientRect().top
   obj.left = e.clientX - editor.current.getBoundingClientRect().left;

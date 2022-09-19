@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react';
+import React,{useState,useRef, useEffect} from 'react';
 import {getRgba} from '../../utils/calculation';
 import {rgbToString} from '../../utils/utils'
 import './index.css'
@@ -20,6 +20,7 @@ interface PositionStyle{
 
 export const Color:React.FC<PositionStyle>=({position,colorChange})=>{
     const [flag,setFlag]=useState<boolean>(false);
+    const [colorTitle,setColorTitle]=useState<string>(rgbToString('rgb(255, 255, 255)'))
     const [hval,setHval]=useState<number>(0);
     const [sval,setSval]=useState<number>(0.5);
     const [vval,setVval]=useState<number>(100);
@@ -30,9 +31,10 @@ export const Color:React.FC<PositionStyle>=({position,colorChange})=>{
         left:'0px'
     });
     const [endColors,setEndColors]=useState<string>("#ff0000");
-    const [colorTitle,setColorTitle]=useState<string>(rgbToString('rgb(255, 255, 255)'))
-
-
+    
+    useEffect(()=>{
+        setHSV();
+    })
     const H=useRef<HTMLDivElement>();
     const SV=useRef<HTMLDivElement>();
     
