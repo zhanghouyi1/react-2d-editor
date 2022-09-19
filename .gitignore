@@ -4,5 +4,7 @@ node_modules
 *.log
 .history
 .DS_Store
-build
-build/index.html
+./build
+build/static
+./build/index.html
+./build/asset-manifest
