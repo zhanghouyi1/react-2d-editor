@@ -1,0 +1,40 @@
+
+.penCut{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    align-items: center;
+}
+.canvasDiv {
+    border: 1px dashed #c89191;
+}
+
+#imgCutShow {
+    position: absolute;
+    display: none;
+    border: 1px dashed #c89191;
+    margin: 0px 410px;
+}
+
+.tools {
+    position: absolute;
+    clear: both;
+    margin-top: 410px;
+}
+.cutOperation{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.cutOperation div{
+    cursor: pointer;
+    width: 72px;
+    height: 36px;
+    border: 1px solid #666;
+    text-align: center;
+    line-height: 36px;
+    background: #fff;
+    margin-right: 15px;
+}

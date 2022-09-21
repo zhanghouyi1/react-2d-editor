@@ -31,7 +31,9 @@ export const App:React.FC=()=>{
     e.preventDefault()
   }
   /**弹窗显示 */
-  const [showModal,setShowModal]=useState<boolean>(false)
+  const [showModal,setShowModal]=useState<boolean>(false);
+  /**弹窗内容显示 */
+  const [modalType,setModalType]=useState<string>('')
 
 const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
   let obj:Child={...currentItem};
@@ -45,7 +47,7 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
 }
 
  /**双击事件 */
-  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh,setShowModal}}>
+  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh,setShowModal,modalType,setModalType}}>
     <main className='containt'>
       <section className='left-list'>
         <Left />

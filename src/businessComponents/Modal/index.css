@@ -10,7 +10,8 @@
 }
 .modalContaint{
     width: 512px;
-    height: 400px;
+    /* height: 400px; */
     background: #fff;
     border-radius: 6px;
+    padding: 10px 20px;
 }

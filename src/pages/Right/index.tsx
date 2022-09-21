@@ -6,11 +6,12 @@
  * @FilePath: /react-2d-editor/src/pages/Right/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import React,{useContext,useRef, useState,useEffect} from "react";
+import React,{useContext,useRef, useState,useEffect,useMemo} from "react";
 import {Context} from '../../App';
 import {Child} from '../../utils/Interface';
 import {Counter} from '../../businessComponents/Counter/index';
 import {Color} from '../../businessComponents/Color/index'
+
 import './index.css'
 /**右侧操作面板 暂时 先加入 圆角透明等操作*/
 interface Type{
@@ -21,18 +22,18 @@ interface Type{
     div:string
 }
  export const Right:React.FC=()=>{
-    const {index,data,setData,setWh,wh,setShowModal,editorMain}=useContext(Context);
+    const {index,data,setData,setWh,wh,setShowModal,editorMain,setModalType}=useContext(Context);
     const refW=useRef<HTMLInputElement>();
     const refH=useRef<HTMLInputElement>();
     const [visibility,setVisibility]=useState<boolean>(false);
     const [bWidth,setBWidth]=useState<number>(0);
     const [bHidth,setBHidth]=useState<number>(0)
-    
+     let item:Child=null;
     useEffect(()=>{
         setBWidth(Number(wh.width.toFixed(2)))
         setBHidth(Number(wh.height.toFixed(2)))
-    },[wh.width,wh.height])
-    let item:Child=null;
+    },[wh.width,wh.height,index,data])
+   
     const type:Type={
         txt:'文字',
         img:'图片',
@@ -54,6 +55,11 @@ interface Type{
      
     }
     const onShowCut=():void=>{
+        setModalType('cut')
+        setShowModal(true)
+    }
+    const onShowCustomCut=()=>{
+        setModalType('customCut')
         setShowModal(true)
     }
     const changeHandleH=(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -68,21 +74,17 @@ interface Type{
         const height=bHidth;
         let isBWidth:boolean=width>=height;
         if(isBWidth&&isAWidth){
-            console.log(2)
             if(width>height){
                 proportion=rect.width/width
             }else{
                 proportion=rect.height/height
             }
         }else if(isBWidth&&!isAWidth){
-            console.log(3)
             proportion=rect.width/width
             
         }else if(!isBWidth&&isAWidth){
-            console.log(4)
             proportion=rect.height/height
         }else{
-            console.log(5)
             proportion=rect.width/width
         }
         
@@ -130,8 +132,8 @@ interface Type{
             </ul>
             {item.type==='img'?<div className='cutItem'>
                <div onClick={onShowCut}>裁剪</div>
-               {/* <div>裁剪</div>
-               <div>裁剪</div> */}
+               <div onClick={onShowCustomCut}>自定义裁剪</div>
+               {/* <div>裁剪</div> */}
             </div>:''}
                {/* 颜色 */}
             

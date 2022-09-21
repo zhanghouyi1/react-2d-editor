@@ -40,7 +40,7 @@ export const Img:React.FC<Props>=(props)=>{
         left:left+'px',
         top:top+'px',
         transform:`rotate(${rotate||0}deg)`,
-        background:item.background,
+        // background:item.background,
         borderRadius:`${borderRadius}%`,
         opacity:opacity
     }}  
