@@ -11,7 +11,7 @@ import {Variable,Style,Calculate,Rect} from '../../utils/Interface'
 export const BoardContext=createContext<Variable>({});
 export const Board:React.FC=()=> {
   //数据
-  const {data,setData,index,setIndex,editor,editorMain,setWh,wh}=useContext(Context);
+  const {data,setData,index,setIndex,editor,editorMain,setWh,wh,proportion}=useContext(Context);
   useEffect(()=>{
     let rect=editorMain.current.getBoundingClientRect()
     setWh({
@@ -114,7 +114,7 @@ export const Board:React.FC=()=> {
  /**双击事件 */
   return <BoardContext.Provider value={{data,setData,oriPos,style,setStyle,currentCom,setIndex,show,setShow,setTxtDom,checkTxt}}>
    <div className='draw-containt' ref={editorMain}>
-    <div className="drawing-wrap" style={{...wh}} ref={editor} onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
+    <div className="drawing-wrap" style={{width:wh.width*proportion+'px',height:wh.height*proportion+'px'}} ref={editor} onMouseDown={onMouseDown.bind(this,'none')} onMouseUp={onMouseUp} onMouseMove={onMouseMove}>
               {
                 data.map((item,index)=>component(item,index))
               }

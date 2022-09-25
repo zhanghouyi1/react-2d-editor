@@ -22,7 +22,8 @@ interface Type{
     div:string
 }
  export const Right:React.FC=()=>{
-    const {index,data,setData,setWh,wh,setShowModal,editorMain,setModalType}=useContext(Context);
+    const {index,data,setData,setWh,wh,setShowModal,editorMain,setModalType,proportion,
+        setProportion}=useContext(Context);
     const refW=useRef<HTMLInputElement>();
     const refH=useRef<HTMLInputElement>();
     const [visibility,setVisibility]=useState<boolean>(false);
@@ -67,7 +68,7 @@ interface Type{
     }
     const getLength=()=>{
         let rect=editorMain.current.getBoundingClientRect();
-    let proportion:number=1;
+
     //先判断是长大于宽还是宽大于长
     let isAWidth:boolean=rect.width>=rect.height;
         const width=bWidth;
@@ -75,23 +76,23 @@ interface Type{
         let isBWidth:boolean=width>=height;
         if(isBWidth&&isAWidth){
             if(width>height){
-                proportion=rect.width/width
+                setProportion(rect.width/width)
             }else{
-                proportion=rect.height/height
+                setProportion(rect.height/height)
             }
         }else if(isBWidth&&!isAWidth){
-            proportion=rect.width/width
+            setProportion(rect.width/width)
             
         }else if(!isBWidth&&isAWidth){
-            proportion=rect.height/height
+            setProportion(rect.height/height)
         }else{
-            proportion=rect.width/width
+            setProportion(rect.width/width)
         }
         
-        proportion=Number(proportion.toFixed(2))
+        setProportion(Number(proportion.toFixed(2)))
         setWh({
-            width:Number(width*proportion),
-            height:Number(height*proportion)
+            width:Number(width),
+            height:Number(height)
         });
     }
     /**颜色选择 */

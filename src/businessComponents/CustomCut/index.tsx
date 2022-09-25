@@ -6,8 +6,7 @@ import './index.css'
 export const CustomCut=({imgURL,getCutImg,width,height})=>{
     let canvas=useRef();
     let  _penCutout=null;
-    useEffect(()=>{
-        
+    useEffect(()=>{  
         _penCutout = new Cut({
             drawPanel: "drawPanel",
             imgSrc:imgURL,

@@ -39,7 +39,9 @@ export interface Variable{
     setWh?:Function,
     setShowModal?:Function,
     modalType?:string,
-    setModalType?:Function
+    setModalType?:Function,
+    proportion?:number,
+    setProportion?:Function
 }
 
 

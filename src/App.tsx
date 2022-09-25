@@ -22,7 +22,9 @@ export const App:React.FC=()=>{
   //有效区域
   const editorMain=useRef<HTMLDivElement>();
   //全局宽高
-  const [wh,setWh]=useState<object>({width:0,height:0})
+  const [wh,setWh]=useState<object>({width:0,height:0});
+  //页面宽高比例
+  const [proportion,setProportion]=useState<number>(1)
   const [data,setData]=useState<Child[]>([]);
   const [currentItem,setCurrentItem]=useState<Child>();
   //选择了哪个 元素的坐标
@@ -47,7 +49,22 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
 }
 
  /**双击事件 */
-  return <Context.Provider value={{data,setData,setCurrentItem,index,setIndex,editor,editorMain,wh,setWh,setShowModal,modalType,setModalType}}>
+  return <Context.Provider value={{
+    data,
+    setData,
+    setCurrentItem,
+    index,
+    setIndex,
+    editor,
+    editorMain,
+    wh,
+    setWh,
+    setShowModal,
+    modalType,
+    setModalType,
+    proportion,
+    setProportion
+    }}>
     <main className='containt'>
       <section className='left-list'>
         <Left />
