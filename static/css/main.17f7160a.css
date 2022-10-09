@@ -280,9 +280,9 @@ textarea {
 
 @font-face {
   font-family: 'HYk2gj';
-  src: url(/static/fonts/YUNFENFEIYUNTI.0b449d33.eot);
+  src: url(./static/fonts/YUNFENFEIYUNTI.0b449d33.eot);
   /* IE9 Compat Modes */
-  src: url(/static/fonts/YUNFENFEIYUNTI.0b449d33.eot?#iefix) format('embedded-opentype'), /* IE6-IE8 */ url(/static/fonts/YUNFENFEIYUNTI.bca58285.woff2) format('woff2'), /* Super Modern Browsers */ url(/static/fonts/YUNFENFEIYUNTI.0f8438f3.woff) format('woff'), /* Pretty Modern Browsers */ url(/static/fonts/YUNFENFEIYUNTI.236d9047.ttf) format('truetype'), /* Safari, Android, iOS */ url(/static/images/YUNFENFEIYUNTI.1e8921c0.svg#svgFontName) format('svg');
+  src: url(./static/fonts/YUNFENFEIYUNTI.0b449d33.eot?#iefix) format('embedded-opentype'), /* IE6-IE8 */ url(./static/fonts/YUNFENFEIYUNTI.bca58285.woff2) format('woff2'), /* Super Modern Browsers */ url(./static/fonts/YUNFENFEIYUNTI.0f8438f3.woff) format('woff'), /* Pretty Modern Browsers */ url(./static/fonts/YUNFENFEIYUNTI.236d9047.ttf) format('truetype'), /* Safari, Android, iOS */ url(./static/images/YUNFENFEIYUNTI.1e8921c0.svg#svgFontName) format('svg');
   /* Legacy iOS */
 }
 .txt {
