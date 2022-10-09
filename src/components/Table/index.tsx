@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-18 17:14:40
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-23 15:27:15
+ * @LastEditTime: 2022-09-30 16:49:46
  * @FilePath: /2d-ediotor/src/components/Table/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,7 +12,7 @@ import {BoardContext} from '../../pages/Board/index';
 import React, {useContext,useState,useRef} from 'react';
 import {tableData} from '../../utils/data'
 import {Props,TableData} from '../../utils/Interface'
-import './index.css'
+import './index.less'
 
 export const Table:React.FC<Props>=({item,index})=>{
     const {setStyle,currentCom,setIndex,setShow,checkTxt}=useContext(BoardContext);

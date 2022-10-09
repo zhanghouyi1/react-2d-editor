@@ -1,6 +1,6 @@
 
 
-import tranback from '../../src/accets/img/tranback.png'
+import tranback from '../../src/assets/img/tranback.png'
 interface Defaults{
     drawPanel?:string,
     canvasId?:any,

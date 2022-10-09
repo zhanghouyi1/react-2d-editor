@@ -1,6 +1,6 @@
 import React,{useEffect, useRef} from 'react';
 import {Cut} from '../../utils/customCut';
-import './index.css'
+import './index.less'
 
 
 export const CustomCut=({imgURL,getCutImg,width,height})=>{

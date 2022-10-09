@@ -1,58 +1,58 @@
 {
-  "name": "test-zu",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://zhanghouyi1.github.io/react-2d-editor/",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "css-loader": "^6.7.1",
-    "gh-pages": "^4.0.0",
-    "react": "^18.2.0",
-    "react-cropper": "^2.1.8",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "rtw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "zhanghouyi",
+  "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b master"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev:dev": "cross-env NODE_ENV=development BASE_ENV=development webpack-dev-server -c build/webpack.dev.js",
+    "dev:test": "cross-env NODE_ENV=development BASE_ENV=test webpack-dev-server -c build/webpack.dev.js",
+    "dev:pre": "cross-env NODE_ENV=development BASE_ENV=pre webpack-dev-server -c build/webpack.dev.js",
+    "dev:prod": "cross-env NODE_ENV=development BASE_ENV=production webpack-dev-server -c build/webpack.dev.js",
+    "build:dev": "cross-env NODE_ENV=production BASE_ENV=development webpack -c build/webpack.prod.js",
+    "build:test": "cross-env NODE_ENV=production BASE_ENV=test webpack -c build/webpack.prod.js",
+    "build:pre": "cross-env NODE_ENV=production BASE_ENV=pre webpack -c build/webpack.prod.js",
+    "build:prod": "cross-env NODE_ENV=production BASE_ENV=production webpack -c build/webpack.prod.js",
+    "build:analy": "cross-env NODE_ENV=production BASE_ENV=production webpack -c build/webpack.analy.js"
   },
   "devDependencies": {
-    "@types/node": "^18.7.6",
-    "@types/react": "^18.0.17",
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-proposal-decorators": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "install": "^0.13.0",
+    "autoprefixer": "^10.4.12",
+    "babel-loader": "^8.2.5",
+    "compression-webpack-plugin": "^10.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "core-js": "^3.25.3",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.2.0",
+    "glob-all": "^3.3.0",
+    "html-webpack-plugin": "^5.5.0",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
-    "ts-loader": "^9.3.1",
-    "typescriptnpm": "^1.0.1",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "purgecss-webpack-plugin": "^5.0.0",
+    "react-refresh": "^0.14.0",
+    "speed-measure-webpack-plugin": "^1.5.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "thread-loader": "^3.0.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.0"
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "serve": "^14.0.1",
+    "react-cropper": "^2.1.8"
   }
 }

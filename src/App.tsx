@@ -2,23 +2,23 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-17 09:37:28
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-22 15:02:02
+ * @LastEditTime: 2022-09-30 16:07:32
  * @FilePath: /2d-ediotor/src/App.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import React,{ useState,createContext,useRef} from 'react';
-import './App.css';
-import {Board} from './pages/Board';
-import {Left} from './pages/Left/index'
-import {Right} from './pages/Right/index'
-import {generateID} from './utils/utils'
-import {Modal} from './businessComponents/Modal/index'
+import '@/App.less';
+import {Board} from '@/pages/Board';
+import {Left} from '@/pages/Left/index'
+import {Right} from '@/pages/Right/index'
+import {generateID} from '@/utils/utils'
+import {Modal} from '@/businessComponents/Modal/index'
 import {Child,Variable} from './utils/Interface'
 
 export const Context=createContext<Variable>({});
 export const App:React.FC=()=>{
    //画布dom
-  const editor=useRef<HTMLDivElement>();
+  const editor=useRef<HTMLDivElement>(null);
   //有效区域
   const editorMain=useRef<HTMLDivElement>();
   //全局宽高
@@ -28,7 +28,7 @@ export const App:React.FC=()=>{
   const [data,setData]=useState<Child[]>([]);
   const [currentItem,setCurrentItem]=useState<Child>();
   //选择了哪个 元素的坐标
-  const [index,setIndex]=useState<number>(null);
+  const [index,setIndex]=useState<number|undefined>(0);
   const dragOver=(e:React.DragEvent<HTMLDivElement>)=>{
     e.preventDefault()
   }
@@ -38,10 +38,10 @@ export const App:React.FC=()=>{
   const [modalType,setModalType]=useState<string>('')
 
 const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
-  let obj:Child={...currentItem};
+  let obj:any={...currentItem};
 
-  obj.top = e.clientY-editor.current.getBoundingClientRect().top
-  obj.left = e.clientX - editor.current.getBoundingClientRect().left;
+  obj.top = e.clientY-editor.current!.getBoundingClientRect().top
+  obj.left = e.clientX - editor.current!.getBoundingClientRect().left;
   obj.id=generateID()
 
   const _d=data.concat([{...obj}])

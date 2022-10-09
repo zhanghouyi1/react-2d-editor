@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-22 14:18:50
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-31 14:32:42
+ * @LastEditTime: 2022-09-30 16:01:05
  * @FilePath: /react-2d-editor/src/utils/data.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,14 +14,14 @@
  * @FilePath: /test-zu/src/utils/data.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import bs from '../accets/svg/bs.svg'
-import img from '../accets/img/img.png';
-import txt from '../accets/img/txt.png';
-import svg from '../accets/img/svg.png';
-import circular from '../accets/img/circular.png';
-import table from '../accets/img/table.png'
+import bs from '@/assets/svg/bs.svg'
+import img from '@/assets/img/img.png';
+import txt from '@/assets/img/txt.png';
+import svg from '@/assets/img/svg.png';
+import circular from '@/assets/img/circular.png';
+import table from '@/assets/img/table.png'
 import {Child,TableData} from './Interface'
-
+import web from '@/assets/img/images.jpeg'
 export const points:Array<string> = ['e', 'w', 's', 'n', 'ne', 'nw', 'se', 'sw'];
 export const vertex:Array<string> = ['e', 'w', 'ne', 'nw', 'se', 'sw'];
 
@@ -33,7 +33,7 @@ export const list:Child[]=[
     name:'图片',
     icon:img,
     width: 300,
-    url:require('../accets/img/1.webp'),
+    url:web,
     height: 200,
     background: 'red',
     left: 0,

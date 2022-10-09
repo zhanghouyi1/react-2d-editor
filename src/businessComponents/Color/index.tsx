@@ -1,7 +1,7 @@
 import React,{useState,useRef, useEffect} from 'react';
-import {getRgba} from '../../utils/calculation';
-import {rgbToString} from '../../utils/utils'
-import './index.css'
+import {getRgba} from '@/utils/calculation';
+import {rgbToString} from '@/utils/utils'
+import './index.less'
 
 interface SlideStyle{
     top:string,

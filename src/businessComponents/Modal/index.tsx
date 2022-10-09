@@ -1,5 +1,5 @@
 import React,{useContext} from 'react';
-import './index.css';
+import './index.less';
 import {Context} from '../../App';
 import {Child} from '../../utils/Interface';
 import {Cut} from '../Cut/index'

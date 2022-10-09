@@ -1,0 +1,47 @@
+/*
+ * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @Date: 2022-09-25 18:22:38
+ * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
+ * @LastEditTime: 2022-09-30 16:48:15
+ * @FilePath: /rtw/src/businessComponents/CustomCut/index.css
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+
+.penCut{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    align-items: center;
+    .canvasDiv {
+        border: 1px dashed #c89191;
+    }
+    .cutOperation{
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        div{
+            cursor: pointer;
+            width: 72px;
+            height: 36px;
+            border: 1px solid #666;
+            text-align: center;
+            line-height: 36px;
+            background: #fff;
+            margin-right: 15px;
+        }
+    }
+}
+#imgCutShow {
+    position: absolute;
+    display: none;
+    border: 1px dashed #c89191;
+    margin: 0px 410px;
+}
+
+.tools {
+    position: absolute;
+    clear: both;
+    margin-top: 410px;
+}

@@ -2,7 +2,7 @@
  * @Author: zhanghouyi zhanghouyi@baoxiaohe.com
  * @Date: 2022-08-22 14:26:48
  * @LastEditors: zhanghouyi zhanghouyi@baoxiaohe.com
- * @LastEditTime: 2022-08-23 15:15:43
+ * @LastEditTime: 2022-09-30 16:52:18
  * @FilePath: /react-2d-editor/src/pages/Right/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,7 +12,8 @@ import {Child} from '../../utils/Interface';
 import {Counter} from '../../businessComponents/Counter/index';
 import {Color} from '../../businessComponents/Color/index'
 
-import './index.css'
+import './index.less'
+
 /**右侧操作面板 暂时 先加入 圆角透明等操作*/
 interface Type{
     img:string,
