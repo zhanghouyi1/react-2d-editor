@@ -18,7 +18,7 @@ module.exports={
         filename:'static/js/[name].[chunkhash:8].js',
         path:path.join(__dirname,'../dist'),
         clean:true,
-        publicPath:'/'
+        publicPath:'./'
     },
     module:{
         rules:[
@@ -54,15 +54,15 @@ module.exports={
                 },
             },
             {
-                test:/.(woff2?|eot|ttf|otf)$/,
+                test:/.(woff2?|eot|ttf|otf|woff)$/,
                 type:'asset',
                 parser:{
                     dataUrlCondition:{
-                        maxSize:10*1024,
+                        maxSize:10000*1024,
                     }
                 },
                 generator:{ 
-                    filename:'static/fonts/[name].[contenthash:8][ext]', // 文件输出目录和命名
+                    filename:'static/css/[name].[contenthash:8][ext]', // 文件输出目录和命名
                 },
             },
             {
