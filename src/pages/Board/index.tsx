@@ -69,7 +69,9 @@ export const Board:React.FC=()=> {
     // 然后鼠标坐标是
     const cY:number = e.clientY; // clientX 相对于可视化区域
     const cX:number = e.clientX;
-
+    // style.width=style.width*proportion;
+    // style.height=style.height*proportion
+    console.log('style',style)
     oriPos.current = {
         ...style,
         cX, cY

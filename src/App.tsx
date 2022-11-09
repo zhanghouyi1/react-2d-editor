@@ -9,11 +9,12 @@
 import React,{ useState,createContext,useRef} from 'react';
 import '@/App.less';
 import {Board} from '@/pages/Board';
-import {Left} from '@/pages/Left/index'
-import {Right} from '@/pages/Right/index'
-import {generateID} from '@/utils/utils'
-import {Modal} from '@/businessComponents/Modal/index'
-import {Child,Variable} from './utils/Interface'
+import {Top} from '@/pages/top';
+import {Left} from '@/pages/Left/index';
+import {Right} from '@/pages/Right/index';
+import {generateID} from '@/utils/utils';
+import {Modal} from '@/businessComponents/Modal/index';
+import {Child,Variable} from './utils/Interface';
 
 export const Context=createContext<Variable>({});
 export const App:React.FC=()=>{
@@ -65,19 +66,24 @@ const dragHandle=(e:React.DragEvent<HTMLDivElement>)=>{
     proportion,
     setProportion
     }}>
-    <main className='containt'>
-      <section className='left-list'>
-        <Left />
-      </section>
-      <section className='middle'>
-        <div onDrop={dragHandle} onDragOver={dragOver}  className='middle-containt'>
-          <Board />
+    <div className='containt'>
+      <div>
+        <Top />
+      </div>
+      <div className='main-containt'>
+        <div className='left-list'>
+          <Left />
         </div>
-      </section>
-      <section className="right-list">
-        <Right />
-      </section>
-      {showModal?<Modal />:''}
-    </main>
+        <div className='middle'>
+          <div onDrop={dragHandle} onDragOver={dragOver}  className='middle-containt'>
+            <Board />
+          </div>
+        </div>
+        <div className="right-list">
+          <Right />
+        </div>
+        {showModal?<Modal />:''}
+      </div>
+    </div>
   </Context.Provider> 
 }

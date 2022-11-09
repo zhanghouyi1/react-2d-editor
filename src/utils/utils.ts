@@ -16,7 +16,8 @@ export const transform = (
   e:MouseEvent<HTMLDivElement>, 
   txtDom:HTMLElement, 
   vectorData:RefObject<Calculate>, 
-  editorOffset:RefObject<Rect>):Style => {
+  editorOffset:RefObject<Rect>
+  ):Style => {
   const {
     top,
     left,

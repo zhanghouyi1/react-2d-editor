@@ -13,7 +13,7 @@
   position: relative;
   top: 0px ;
   left: 0px;
-  background: #c0c5cf;
+  background: #999;
 }
 .drawing-item {
     cursor: move;
@@ -113,12 +113,14 @@
 .containt{
  position: relative;
  height: 100vh;
- display: flex;
- display: -webkit-flex;
+ 
+}
+.main-containt{
+  display: flex;
+  display: -webkit-flex;
+  height:calc(100% - 60px);
 }
 .left-list{
- 
-  width: 240px;
   height: 100%;
   background: #fff;
   z-index: 1;
@@ -134,8 +136,11 @@
   width: 240px;
   height: 100%;
   background: #fff;
-  padding: 16px 24px;
+  padding: 16px 14px;
   box-sizing: border-box;
+  margin-left: 20px;
+  box-shadow: 0px 17px 31px -5px #000;
+  background: #eee;
 }
 .middle-containt{
   width: 100%;

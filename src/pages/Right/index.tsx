@@ -68,29 +68,33 @@ interface Type{
         setBHidth(Number(refH.current.value))
     }
     const getLength=()=>{
-        let rect=editorMain.current.getBoundingClientRect();
-
+    let rect=editorMain.current.getBoundingClientRect();
+        console.log('bWidth',bWidth,rect)
     //先判断是长大于宽还是宽大于长
     let isAWidth:boolean=rect.width>=rect.height;
         const width=bWidth;
         const height=bHidth;
         let isBWidth:boolean=width>=height;
         if(isBWidth&&isAWidth){
+            console.log('111')
             if(width>height){
                 setProportion(rect.width/width)
             }else{
                 setProportion(rect.height/height)
             }
         }else if(isBWidth&&!isAWidth){
+            console.log('222')
             setProportion(rect.width/width)
             
         }else if(!isBWidth&&isAWidth){
+            console.log('333')
             setProportion(rect.height/height)
         }else{
+            console.log('444')
             setProportion(rect.width/width)
         }
-        
-        setProportion(Number(proportion.toFixed(2)))
+        console.log('----',Number(proportion.toFixed(2)))
+        // setProportion(Number(proportion.toFixed(2)))
         setWh({
             width:Number(width),
             height:Number(height)

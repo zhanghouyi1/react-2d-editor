@@ -8,11 +8,13 @@
  */
 import {BoardContext} from '../../pages/Board/index';
 import React, {useContext } from 'react';
+import {Context} from '../../App';
 import {Props} from '../../utils/Interface'
 
 export const Div:React.FC<Props>=(props)=>{
     const {item,index}=props
     const {setStyle,currentCom,setIndex,setShow,setTxtDom}=useContext(BoardContext);
+    const {proportion}=useContext(Context);
     const {left,top,width,height,rotate,border,borderRadius,opacity}=item;
     let obj={left,top,width,height,rotate}
     const checkElement=(e:React.MouseEvent<HTMLDivElement>):void=>{
@@ -26,7 +28,7 @@ export const Div:React.FC<Props>=(props)=>{
         setShow(true);
         setTxtDom(null);
     }
-
+    console.log('proportion',proportion)
     return <div 
     key={item.type} 
     className='item' 

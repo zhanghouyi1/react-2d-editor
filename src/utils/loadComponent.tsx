@@ -10,7 +10,7 @@ export const component = (item:Child,index:number):any=>{
     switch(item.type){
         case 'img':
             return <Img key={item.id} item={item} index={index} />
-        case 'div':
+        case 'graphical':
             return <Div key={item.id} item={item} index={index} />
         case 'txt':
             return <Txt key={item.id} item={item} index={index} />
