@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "gh-pages": "^4.0.0",
+    "html2canvas": "^1.4.1",
     "react": "^18.2.0",
     "react-cropper": "^2.1.8",
     "react-dom": "^18.2.0",
