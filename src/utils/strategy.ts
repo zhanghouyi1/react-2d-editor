@@ -1,5 +1,14 @@
 /**用于策略模式 */
-import {nwPosition,nePosition,swPosition,sePosition,nPosition,ePosition,sPosition,wPosition} from './calculFunc';
+import {
+    nwPosition,
+    nePosition,
+    swPosition,
+    sePosition,
+    nPosition,
+    ePosition,
+    sPosition,
+    wPosition,
+} from './calculFunc';
 
 export const calPosition = {
     nw: nwPosition,
@@ -10,8 +19,15 @@ export const calPosition = {
     e: ePosition,
     s: sPosition,
     w: wPosition,
-}
+};
 
-export const points:object={
-    e:'w', w:'e', s:'n', n:'s', ne:'sw', nw:'se', se:'nw', sw:'ne'
-}
+export const points: object = {
+    e: 'w',
+    w: 'e',
+    s: 'n',
+    n: 's',
+    ne: 'sw',
+    nw: 'se',
+    se: 'nw',
+    sw: 'ne',
+};

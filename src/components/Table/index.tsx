@@ -7,81 +7,83 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
+import { BoardContext } from '../../pages/Board/index';
+import React, { useContext, useState, useRef } from 'react';
+import { tableData } from '../../utils/data';
+import { Props, TableData } from '../../utils/Interface';
+import './index.less';
 
-import {BoardContext} from '../../pages/Board/index';
-import React, {useContext,useState,useRef} from 'react';
-import {tableData} from '../../utils/data'
-import {Props,TableData} from '../../utils/Interface'
-import './index.less'
+export const Table: React.FC<Props> = ({ item, index }) => {
+    const { setStyle, currentCom, setIndex, setShow, checkTxt } = useContext(BoardContext);
+    const { left, top, width, height, rotate, fontSize, zIndex, opacity } = item;
+    const [enable, setEnable] = useState<boolean>(false);
+    const txt = useRef<HTMLDivElement>();
+    const th: TableData[] = tableData.filter(item => item.type === 'th');
 
-export const Table:React.FC<Props>=({item,index})=>{
-    const {setStyle,currentCom,setIndex,setShow,checkTxt}=useContext(BoardContext);
-    const {left,top,width,height,rotate,fontSize,zIndex,opacity}=item
-    const [enable,setEnable]=useState<boolean >(false);
-    const txt=useRef<HTMLDivElement>()
-    const th:TableData[]=tableData.filter(item=>item.type==='th');
-  
-    const liWidth:number=width/th.length;
-    const liHeight:number=height/(tableData.length/th.length)
+    const liWidth: number = width / th.length;
+    const liHeight: number = height / (tableData.length / th.length);
 
     /**双击事件 */
-    const doubleClick=():void=>{
-        setEnable(true)
-    }
+    const doubleClick = (): void => {
+        setEnable(true);
+    };
     /**单击事件 */
-    const checkElement=(e:React.MouseEvent<HTMLElement>):void=>{
+    const checkElement = (e: React.MouseEvent<HTMLElement>): void => {
         e.stopPropagation();
-        currentCom.current=item
+        currentCom.current = item;
         setStyle({
             left,
             top,
             width,
             height,
             rotate,
-            fontSize
+            fontSize,
         });
         setIndex(index);
         setShow(true);
-    }
+    };
     /**失去焦点 */
-    const blurHandle=():void=>{
-        setEnable(false)
-    }
+    const blurHandle = (): void => {
+        setEnable(false);
+    };
     /**co */
-    const handleInput=(e:React.MouseEvent<HTMLDivElement>):void=>{
+    const handleInput = (e: React.MouseEvent<HTMLDivElement>): void => {
         setStyle({
             left,
             top,
             width,
-            height
+            height,
         });
-    }
-    return <ul className="tableHead"
-    onMouseDown={checkElement}
-        style={{
-            position:'absolute',
-            width:width+1+'px',
-            height:height+'px',
-            left:left+'px',
-            top:top+'px',
-            transform:`rotate(${rotate}deg)`,
-            zIndex:checkTxt?1100:zIndex,
-            background:item.background,
-            opacity:opacity
-         }}  >
-        {tableData.map((item,index)=><li 
-        key={index} className={item.type}
-        style={{width:liWidth+'px',height:liHeight+'px'}}
-        
-        >
-            <div
-            ref={txt}
+    };
+    return (
+        <ul
+            className="tableHead"
             onMouseDown={checkElement}
-            onBlur={blurHandle}
-            onInput={handleInput}
-            contentEditable={enable}
-            onClick={doubleClick}
-            suppressContentEditableWarning={true}></div>
-        </li>)}
-    </ul>
-}
+            style={{
+                position: 'absolute',
+                width: width + 1 + 'px',
+                height: height + 'px',
+                left: left + 'px',
+                top: top + 'px',
+                transform: `rotate(${rotate}deg)`,
+                zIndex: checkTxt ? 1100 : zIndex,
+                background: item.background,
+                opacity: opacity,
+            }}
+        >
+            {tableData.map((item, index) => (
+                <li key={index} className={item.type} style={{ width: liWidth + 'px', height: liHeight + 'px' }}>
+                    <div
+                        ref={txt}
+                        onMouseDown={checkElement}
+                        onBlur={blurHandle}
+                        onInput={handleInput}
+                        contentEditable={enable}
+                        onClick={doubleClick}
+                        suppressContentEditableWarning={true}
+                    ></div>
+                </li>
+            ))}
+        </ul>
+    );
+};

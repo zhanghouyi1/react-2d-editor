@@ -1,74 +1,72 @@
-
-
-import tranback from '../../src/assets/img/tranback.png'
-interface Defaults{
-    drawPanel?:string,
-    canvasId?:any,
-    imgId?:string,
-    width:number,
-    height:number,
-    imgSrc:string,
-    imgBackSrc?:string,
-    penColor?:string,
-    defaultPointList?:Array<any>,
-    showTip?:Function
+import tranback from '../../src/assets/img/tranback.png';
+interface Defaults {
+    drawPanel?: string;
+    canvasId?: any;
+    imgId?: string;
+    width: number;
+    height: number;
+    imgSrc: string;
+    imgBackSrc?: string;
+    penColor?: string;
+    defaultPointList?: Array<any>;
+    showTip?: Function;
 }
-interface Img{
-    image:HTMLImageElement,
-    id: string,
-    w: number,
-    h: number
+interface Img {
+    image: HTMLImageElement;
+    id: string;
+    w: number;
+    h: number;
 }
 interface Canvas {
-    canvas:any,
-    id: any,
-    w: number,
-    h: number,
+    canvas: any;
+    id: any;
+    w: number;
+    h: number;
     //坐标点集合
-    pointList:any,
+    pointList: any;
     //临时存储坐标点
-    tempPointList: Array<any>,
+    tempPointList: Array<any>;
     //圆点的触发半径：
-    roundr: number,
+    roundr: number;
     //圆点的显示半径：
-    roundrr: number,
+    roundrr: number;
     //当前拖动点的索引值；
-    curPointIndex: number,
+    curPointIndex: number;
     //判断是否点击拖动
-    paint: boolean,
+    paint: boolean;
     //判断是否点圆点拖动，并瞬间离开,是否拖动点；
-    juPull: boolean,
+    juPull: boolean;
     //判断是否闭合
-    IsClose: boolean,
-    imgBack: HTMLImageElement,
-    penColor: string
+    IsClose: boolean;
+    imgBack: HTMLImageElement;
+    penColor: string;
 }
-export class Cut{
-    DEFAULTS:Defaults = {
-        drawPanel: "drawPanel",
-        canvasId: "canvas",
-        imgId: "imgCut",
+export class Cut {
+    DEFAULTS: Defaults = {
+        drawPanel: 'drawPanel',
+        canvasId: 'canvas',
+        imgId: 'imgCut',
         width: 400,
         height: 400,
-        imgSrc: "",
+        imgSrc: '',
         imgBackSrc: tranback,
-        penColor: "#0087C4",
+        penColor: '#0087C4',
         defaultPointList: new Array(),
-        showTip: function (msg:string) {
+        showTip: function (msg: string) {
             alert(msg);
-        }
-    }
+        },
+    };
     //图片
-    IMG:Img = {
+    IMG: Img = {
         image: new Image(),
-        id: "",
+        id: '',
         w: 0,
-        h: 0
-    }
+        h: 0,
+    };
     //画布；
-    CANVAS:Canvas = {
+    CANVAS: Canvas = {
         canvas: new Object(),
-        id: "",
+        id: '',
         w: 0,
         h: 0,
         //坐标点集合
@@ -88,27 +86,26 @@ export class Cut{
         //判断是否闭合
         IsClose: false,
         imgBack: new Image(),
-        penColor: "#0087C4"
-    }
-    constructor(data:Defaults){
-        this.DEFAULTS=Object.assign(this.DEFAULTS,{...data});
-        this.iniData()
+        penColor: '#0087C4',
+    };
+    constructor(data: Defaults) {
+        this.DEFAULTS = Object.assign(this.DEFAULTS, { ...data });
+        this.iniData();
         this.eventBind();
     }
 
-
-    iniData(){
-        this.DEFAULTS=Object.assign(this.DEFAULTS,{});
+    iniData() {
+        this.DEFAULTS = Object.assign(this.DEFAULTS, {});
         this.CANVAS.id = this.DEFAULTS.canvasId;
         this.CANVAS.roundr = 7;
         this.CANVAS.roundrr = 3;
         this.CANVAS.imgBack.src = this.DEFAULTS.imgBackSrc;
         this.CANVAS.penColor = this.DEFAULTS.penColor;
-        this.CANVAS.canvas =this.CANVAS.id
-        this.CANVAS.canvas=this.CANVAS.canvas.getContext("2d");
+        this.CANVAS.canvas = this.CANVAS.id;
+        this.CANVAS.canvas = this.CANVAS.canvas.getContext('2d');
         this.CANVAS.w = this.DEFAULTS.width;
         this.CANVAS.h = this.DEFAULTS.height;
-       
+
         this.CANVAS.curPointIndex = 0;
 
         //图片
@@ -116,7 +113,6 @@ export class Cut{
         this.IMG.h = this.CANVAS.h;
         this.IMG.image.src = this.DEFAULTS.imgSrc;
 
-   
         //加载事件：
         this.ReDo();
         if (this.notEmptyObj(this.DEFAULTS.defaultPointList) && this.DEFAULTS.defaultPointList.length > 0) {
@@ -124,11 +120,12 @@ export class Cut{
         }
     }
 
-    eventBind(){
-        const events=this.CANVAS.id;
-        events.onmousemove=(e)=>{
+    eventBind() {
+        const events = this.CANVAS.id;
+        events.onmousemove = e => {
             var p = this.CANVAS.pointList;
-            if (this.CANVAS.paint) {//是不是按下了鼠标
+            if (this.CANVAS.paint) {
+                //是不是按下了鼠标
                 if (p.length > 0) {
                     this.equalStartPoint(p[p.length - 1].pointx, p[p.length - 1].pointy);
                 }
@@ -139,19 +136,22 @@ export class Cut{
             this.AddNewNode(e.offsetX, e.offsetY);
             //添加动态线：
             this.draAllMove(e.offsetX, e.offsetY);
-        }
-        events.onmousedown=(e)=>{
-
+        };
+        events.onmousedown = e => {
             this.CANVAS.paint = true;
             //点击判断是否需要在线上插入新的节点：
             if (this.CANVAS.tempPointList.length > 0) {
-                this.CANVAS.pointList.splice(this.CANVAS.tempPointList[1].pointx, 0, this.Point(this.CANVAS.tempPointList[0].pointx, this.CANVAS.tempPointList[0].pointy));
+                this.CANVAS.pointList.splice(
+                    this.CANVAS.tempPointList[1].pointx,
+                    0,
+                    this.Point(this.CANVAS.tempPointList[0].pointx, this.CANVAS.tempPointList[0].pointy)
+                );
                 //
                 //清空临时数组
                 this.CANVAS.tempPointList.length = 0;
             }
-        }
-        events.onmouseup=(e)=>{
+        };
+        events.onmouseup = e => {
             const p = this.CANVAS.pointList;
             //拖动结束
             this.CANVAS.paint = false;
@@ -163,15 +163,21 @@ export class Cut{
                 this.equalStartPoint(p[p.length - 1].pointx, p[p.length - 1].pointy);
             } else {
                 //如果闭合：禁止添加新的点；
-                if (!this.CANVAS.IsClose) {//没有闭合
-                    const point= this.Point(e.offsetX, e.offsetY)
+                if (!this.CANVAS.IsClose) {
+                    //没有闭合
+                    const point = this.Point(e.offsetX, e.offsetY);
                     p.push(point);
                     //验证抠图是否闭合：闭合，让结束点=开始点；添加标记
                     this.equalStartPoint(p[p.length - 1].pointx, p[p.length - 1].pointy);
                     //判断是否闭合：
                     //重新画；
                     if (p.length > 1) {
-                        this.drawLine(p[p.length - 2].pointx, p[p.length - 2].pointy, p[p.length - 1].pointx, p[p.length - 1].pointy);
+                        this.drawLine(
+                            p[p.length - 2].pointx,
+                            p[p.length - 2].pointy,
+                            p[p.length - 1].pointx,
+                            p[p.length - 1].pointy
+                        );
                         this.drawArc(p[p.length - 1].pointx, p[p.length - 1].pointy);
                     } else {
                         this.drawArc(p[p.length - 1].pointx, p[p.length - 1].pointy);
@@ -185,16 +191,16 @@ export class Cut{
                 this.fillBackColor();
                 this.drawAllLine();
             }
-        }
-        events.onmouseleave=()=>{
+        };
+        events.onmouseleave = () => {
             this.CANVAS.paint = false;
-        }
+        };
     }
     Point(x, y) {
         return {
             pointx: x,
-            pointy:y
-        }
+            pointy: y,
+        };
     }
     setOriPoints(pointObj) {
         this.clearCan();
@@ -251,13 +257,18 @@ export class Cut{
                     this.drawArc(p[0].pointx, p[0].pointy);
                 }
                 this.drawArcSmall(x, y);
-                this.drawLine(p[this.CANVAS.pointList.length - 1].pointx, p[this.CANVAS.pointList.length - 1].pointy, x, y);
-
+                this.drawLine(
+                    p[this.CANVAS.pointList.length - 1].pointx,
+                    p[this.CANVAS.pointList.length - 1].pointy,
+                    x,
+                    y
+                );
             }
         }
-    }Î
-     //画线
-     drawLine(startX, startY, endX, endY) {
+    }
+    Î;
+    //画线
+    drawLine(startX, startY, endX, endY) {
         this.CANVAS.canvas.strokeStyle = this.CANVAS.penColor;
         this.CANVAS.canvas.lineWidth = 1;
         this.CANVAS.canvas.moveTo(startX, startY);
@@ -295,19 +306,23 @@ export class Cut{
                 this.CANVAS.canvas.drawImage(this.CANVAS.imgBack, i, j, 96, 96);
             }
         }
-        this.CANVAS.canvas.globalCompositeOperation = "destination-out";
+        this.CANVAS.canvas.globalCompositeOperation = 'destination-out';
         this.CANVAS.canvas.beginPath();
         for (var i = 0; i < this.CANVAS.pointList.length; i++) {
             this.CANVAS.canvas.lineTo(this.CANVAS.pointList[i].pointx, this.CANVAS.pointList[i].pointy);
         }
         this.CANVAS.canvas.closePath();
         this.CANVAS.canvas.fill();
-        this.CANVAS.canvas.globalCompositeOperation = "destination-over";
+        this.CANVAS.canvas.globalCompositeOperation = 'destination-over';
     }
     //判断结束点是否与起始点重合；
     equalStartPoint(x, y) {
         var p = this.CANVAS.pointList;
-        if (p.length > 2 && Math.abs((x - p[0].pointx) * (x - p[0].pointx)) + Math.abs((y - p[0].pointy) * (y - p[0].pointy)) <= this.CANVAS.roundr * this.CANVAS.roundr) {
+        if (
+            p.length > 2 &&
+            Math.abs((x - p[0].pointx) * (x - p[0].pointx)) + Math.abs((y - p[0].pointy) * (y - p[0].pointy)) <=
+                this.CANVAS.roundr * this.CANVAS.roundr
+        ) {
             //如果闭合
             this.CANVAS.IsClose = true;
             p[p.length - 1].pointx = p[0].pointx;
@@ -326,10 +341,12 @@ export class Cut{
         var p = this.CANVAS.pointList;
         if (!this.CANVAS.juPull) {
             for (var i = 0; i < p.length; i++) {
-
-                if (Math.abs((x - p[i].pointx) * (x - p[i].pointx)) + Math.abs((y - p[i].pointy) * (y - p[i].pointy)) <= this.CANVAS.roundr * this.CANVAS.roundr) {
+                if (
+                    Math.abs((x - p[i].pointx) * (x - p[i].pointx)) + Math.abs((y - p[i].pointy) * (y - p[i].pointy)) <=
+                    this.CANVAS.roundr * this.CANVAS.roundr
+                ) {
                     //说明点击圆点拖动了；
-                    this.CANVAS.juPull = true;//拖动
+                    this.CANVAS.juPull = true; //拖动
                     this.CANVAS.curPointIndex = i;
                     p[i].pointx = x;
                     p[i].pointy = y;
@@ -342,7 +359,8 @@ export class Cut{
                     return;
                 }
             }
-        } else {//拖动中
+        } else {
+            //拖动中
             p[this.CANVAS.curPointIndex].pointx = x;
             p[this.CANVAS.curPointIndex].pointy = y;
             //重画：
@@ -352,7 +370,7 @@ export class Cut{
             }
             this.drawAllLine();
         }
-    };
+    }
     //光标移到线上，临时数组添加新的节点：
     AddNewNode(newx, newy) {
         //如果闭合
@@ -365,10 +383,14 @@ export class Cut{
                 // var k =(p[i + 1].pointy - p[i].pointy) / (p[i + 1].pointx - p[i].pointx);
                 var result = false;
                 if (parseFloat(p[i + 1].pointx) - parseFloat(p[i].pointx) != 0) {
-                    var k:any = (p[i + 1].pointy - p[i].pointy) / (p[i + 1].pointx - p[i].pointx);
+                    var k: any = (p[i + 1].pointy - p[i].pointy) / (p[i + 1].pointx - p[i].pointx);
                     var b = p[i].pointy - k * p[i].pointx;
-                    var userK:any = (k * newx + b);
-                    if (((userK < newy + 4 && userK > newy - 4) || (parseInt(userK) == parseInt(newy))) && (newx - p[i + 1].pointx) * (newx - p[i].pointx) <= 2 && (newy - p[i + 1].pointy) * (newy - p[i].pointy) <= 2) {
+                    var userK: any = k * newx + b;
+                    if (
+                        ((userK < newy + 4 && userK > newy - 4) || parseInt(userK) == parseInt(newy)) &&
+                        (newx - p[i + 1].pointx) * (newx - p[i].pointx) <= 2 &&
+                        (newy - p[i + 1].pointy) * (newy - p[i].pointy) <= 2
+                    ) {
                         var aa = Math.abs(p[i + 1].pointx - p[i].pointx - 3);
                         var ab = Math.abs(p[i + 1].pointx - newx);
                         var ac = Math.abs(newx - p[i].pointx);
@@ -387,7 +409,10 @@ export class Cut{
                     }
                 }
                 //考虑接近垂直的情况
-                if (parseFloat(p[i + 1].pointx) - parseFloat(p[i].pointx) == 0 || (Math.abs(parseFloat(p[i + 1].pointx) / parseFloat(p[i].pointx)) >= 15)) {
+                if (
+                    parseFloat(p[i + 1].pointx) - parseFloat(p[i].pointx) == 0 ||
+                    Math.abs(parseFloat(p[i + 1].pointx) / parseFloat(p[i].pointx)) >= 15
+                ) {
                     if (p[i].pointx + 3 >= newx && p[i].pointx - 3 <= newx) {
                         var ba = Math.abs(p[i + 1].pointy - p[i].pointy - 3);
                         var bb = Math.abs(p[i + 1].pointy - newy);
@@ -399,8 +424,8 @@ export class Cut{
                 }
                 if (result) {
                     //添加临时点：
-                    this.CANVAS.tempPointList[0] =  this.Point(newx, newy);//新的坐标点
-                    this.CANVAS.tempPointList[1] =  this.Point(i + 1, i + 1);//需要往pointlist中插入新点的索引；
+                    this.CANVAS.tempPointList[0] = this.Point(newx, newy); //新的坐标点
+                    this.CANVAS.tempPointList[1] = this.Point(i + 1, i + 1); //需要往pointlist中插入新点的索引；
                     i++;
                     //光标移动到线的附近如果是闭合的需要重新划线，并画上新添加的点；
                     if (this.CANVAS.tempPointList.length > 0) {
@@ -440,7 +465,7 @@ export class Cut{
     }
 
     notEmptyObj(obj) {
-        if (obj != null && obj != undefined && obj != "") {
+        if (obj != null && obj != undefined && obj != '') {
             return true;
         }
         return false;
@@ -452,15 +477,15 @@ export class Cut{
             tempPointList = JSON.parse(JSON.stringify(this.CANVAS.pointList));
             tempPointArray = this.movePointArray(tempPointList);
         } else {
-            this.DEFAULTS.showTip("请先进行抠图操作");
+            this.DEFAULTS.showTip('请先进行抠图操作');
             return;
         }
         var proxy = this as any;
         var img = new Image();
-        img.crossOrigin = "Anonymous";
+        img.crossOrigin = 'Anonymous';
         img.src = this.DEFAULTS.imgSrc;
         img.onload = function () {
-            var canvas = document.createElement("canvas");
+            var canvas = document.createElement('canvas');
             canvas.width = tempPointArray[1].pointx - tempPointArray[0].pointx;
             canvas.height = tempPointArray[1].pointy - tempPointArray[0].pointy;
             var ctx = canvas.getContext('2d');
@@ -472,7 +497,7 @@ export class Cut{
             ctx.lineTo(tempPointList[0].pointx, tempPointList[0].pointy);
             ctx.clip();
             ctx.drawImage(img, tempPointArray[0].pointx * -1, tempPointArray[0].pointy * -1, proxy.IMG.w, proxy.IMG.h);
-            fun(canvas.toDataURL("image/png"), canvas.width, canvas.height);
+            fun(canvas.toDataURL('image/png'), canvas.width, canvas.height);
         };
     }
     downLoad() {
@@ -482,15 +507,15 @@ export class Cut{
             tempPointList = JSON.parse(JSON.stringify(this.CANVAS.pointList));
             tempPointArray = this.movePointArray(tempPointList);
         } else {
-            this.DEFAULTS.showTip("请先进行抠图操作");
+            this.DEFAULTS.showTip('请先进行抠图操作');
             return;
         }
         var proxy = this;
         var img = new Image();
-        img.crossOrigin = "Anonymous";
+        img.crossOrigin = 'Anonymous';
         img.src = this.DEFAULTS.imgSrc;
         img.onload = function () {
-            var canvas:any = document.createElement("canvas");
+            var canvas: any = document.createElement('canvas');
             canvas.width = tempPointArray[1].pointx - tempPointArray[0].pointx;
             canvas.height = tempPointArray[1].pointy - tempPointArray[0].pointy;
             var ctx = canvas.getContext('2d');
@@ -502,14 +527,14 @@ export class Cut{
             ctx.lineTo(tempPointList[0].pointx, tempPointList[0].pointy);
             ctx.clip();
             ctx.drawImage(img, tempPointArray[0].pointx * -1, tempPointArray[0].pointy * -1, proxy.IMG.w, proxy.IMG.h);
-            var fileName = "target.png";
-            const nav = (window.navigator as any);
+            var fileName = 'target.png';
+            const nav = window.navigator as any;
             if (nav.msSaveOrOpenBlob) {
                 var imgData = canvas.msToBlob();
                 var blobObj = new Blob([imgData]);
                 nav.msSaveOrOpenBlob(blobObj, fileName);
             } else {
-                var imgData = canvas.toDataURL("image/png");
+                var imgData = canvas.toDataURL('image/png');
                 var a = document.createElement('a');
                 var event = new MouseEvent('click');
                 a.download = fileName;
@@ -542,8 +567,8 @@ export class Cut{
             pointArray[i].pointx -= smallX;
             pointArray[i].pointy -= smallY;
         }
-        tempArray[0] =  this.Point(smallX, smallY);
-        tempArray[1] =  this.Point(bigX, bigY);
+        tempArray[0] = this.Point(smallX, smallY);
+        tempArray[1] = this.Point(bigX, bigY);
         return tempArray;
-    }
+    };
 }

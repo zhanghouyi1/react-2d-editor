@@ -1,13 +1,13 @@
-import React,{ useRef } from "react";
-import Cropper from "react-cropper";
+import React, { useRef } from 'react';
+import Cropper from 'react-cropper';
 
-import './index.less'
-interface CutProps{
-    imgURL:string,
-    onSaveHandler:Function
+import './index.less';
+interface CutProps {
+    imgURL: string;
+    onSaveHandler: Function;
 }
 
-export const Cut:React.FC<CutProps> = ({ imgURL, onSaveHandler }):React.ReactElement<any, any> => {
+export const Cut: React.FC<CutProps> = ({ imgURL, onSaveHandler }): React.ReactElement<any, any> => {
     const cropperRef = useRef<any>(null);
     const saveImage = () => {
         const imageElement = cropperRef?.current;
@@ -15,13 +15,13 @@ export const Cut:React.FC<CutProps> = ({ imgURL, onSaveHandler }):React.ReactEle
         onSaveHandler(cropper.getCroppedCanvas().toDataURL());
     };
 
-    return   <div className='cutContaint' style={{ height: '100%', width: '100%' }}>
-        <Cropper
+    return (
+        <div className="cutContaint" style={{ height: '100%', width: '100%' }}>
+            <Cropper
                 src={imgURL}
                 style={{ height: '100%', width: '100%' }}
                 initialAspectRatio={16 / 9}
                 guides={false}
-    
                 ref={cropperRef}
                 viewMode={1}
                 // guides={true}
@@ -33,8 +33,11 @@ export const Cut:React.FC<CutProps> = ({ imgURL, onSaveHandler }):React.ReactEle
                 // aspectRatio={4 / 3}
                 checkOrientation={false}
             />
-            <div className='saveImg'>
-                <div onClick={saveImage} className=''>确定</div>
+            <div className="saveImg">
+                <div onClick={saveImage} className="">
+                    确定
+                </div>
             </div>
-    </div>
-}
+        </div>
+    );
+};
