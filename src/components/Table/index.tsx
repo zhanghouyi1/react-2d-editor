@@ -81,7 +81,9 @@ export const Table: React.FC<Props> = ({ item, index }) => {
                         contentEditable={enable}
                         onClick={doubleClick}
                         suppressContentEditableWarning={true}
-                    ></div>
+                    >
+                        {index % 2 === 0 ? '双击' : '点我'}
+                    </div>
                 </li>
             ))}
         </ul>
