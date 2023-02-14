@@ -18,7 +18,7 @@ module.exports = {
         filename: 'static/js/[name].[chunkhash:8].js',
         path: path.join(__dirname, '../dist'),
         clean: true,
-        publicPath: '/',
+        publicPath: './',
     },
     module: {
         rules: [
